@@ -12,6 +12,10 @@ public class DFA {
         this.currentState = startState;
     }
 
+    public State getCurrentState(){
+        return this.currentState;
+    }
+
     public State move(char symbol){
         return(this.currentState = this.currentState.getNextState(symbol));
     }

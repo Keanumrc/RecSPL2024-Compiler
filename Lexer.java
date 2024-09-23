@@ -2,102 +2,91 @@ import java.util.ArrayList;
 
 public class Lexer {
 
+    //the DFA that the Lexer controls to detect lexical categories
     private DFA dfa;
 
+    //constructor
     public Lexer(DFA dfa){
         this.dfa = dfa;
     }
 
-    public String lex(String text){
+    public String lex(String text) throws Exception{
 
-        //append an eof symbol at end of text
+        //append an end of file (EOF) symbol at the end of text to detect when we have reached the end
         text += '$';
 
+        //initialisation
         String output = "<TOKENSTREAM>\n";
+        int tokenID = 1;
+        ArrayList<State> previousStates = new ArrayList<>();
+        int startIndex = 0;
+        int endIndex = 0;
+        State state;
 
-        int tokenID = 0;
+        //the main loop that iterates over the characters of the text
+        while(endIndex < text.length()-1){
 
-        ArrayList<State> tokenStates = new ArrayList<>();
-        String token = "";
-        tokenID++;
-        dfa.reset();
+            //reset for the next token
+            previousStates.clear();
+            dfa.reset();
+            state = dfa.getCurrentState();
+            startIndex = endIndex;
 
-        for(int i = 0; i < text.length(); i++){
+            //loop whilst transitions are defined on the symbols
+            do{
 
-            char nextSymbol = text.charAt(i);
-            State nextState = this.dfa.move(nextSymbol);
+                //add the state to previousStates - the first state will always be the non-accepting start state
+                previousStates.add(state);
+                //get the next symbol
+                char symbol = text.charAt(endIndex);
+                //get the nextState based on that symbol
+                state = dfa.move(symbol);
+                //increment endIndex
+                endIndex++;
 
-            //no transition defined on nextSymbol
-            //try back track to last accepting state
-            if(nextState == null){
+            }while(state != null);
 
-                State lastAcceptingState = null;
-                int lastIndex = 0;
+            //look for a prior token, by backtracking to the last accepting state
+            do{
 
-                //iterate over the list in reverse and get the last accepting state
-                for(int listIndex = tokenStates.size()-1; listIndex >= 0; listIndex--){
-                    if(tokenStates.get(listIndex).isAccepting()){
-                        lastAcceptingState = tokenStates.get(listIndex);
-                        lastIndex = listIndex;
-                        break;
-                    }
-                }
+                //remove the last state so we can test it
+                state = previousStates.remove(previousStates.size()-1);
+                //keep endIndex in sync
+                endIndex--;
 
-                if(lastAcceptingState != null){
-                    //the actual token is the substring of token up to lastIndex+1
-                    token = token.substring(0, lastIndex+1);
+            }while((previousStates.size() > 0) && !state.isAccepting());
 
-                    //the actual token class is the token class of the lastAcceptingState
-                    String tokenClass = lastAcceptingState.getTokenClass();
+            //now we have either found the last accepting state, or state is the start state
 
-                    output += "\t<TOK>\n";
-                    output += "\t\t<ID>" + tokenID + "</ID>\n";
-                    output += "\t\t<CLASS>" + tokenClass + "</CLASS>\n";
-                    output += "\t\t<WORD>" + token + "</WORD>\n";
-                    output += "\t</TOK>\n";
+            //if state is the last accepting state, then output a token for it
+            if(state.isAccepting()){
 
-                    tokenStates.clear();
-                    token = "";
-                    tokenID++;
-                    dfa.reset();
+                //the token is the substring of the text from startIndex till endIndex
+                String token = text.substring(startIndex, endIndex);
 
-                    //reset back if not a whitespace character
-                    //remove this code if has to be whitespace characters in between
-                    if(nextSymbol != ' ' && nextSymbol != '\t' && nextSymbol != '\n'){
-                        i--;
-                    }
-                    //skip to end of whitespace
-                    else if(i < text.length()-1){
-                        char nextNextSymbol = text.charAt(i+1);
-                        while(i < text.length()-1 && (nextNextSymbol == ' ' || nextNextSymbol == '\t' || nextNextSymbol == '\n')){
-                            i++;
-                            nextNextSymbol = text.charAt(i+1);
-                        }
-                    }
-                    
-                }
-                else{
-                    if(nextSymbol == '$'){
-                        break;
-                    }
-                    else if(nextSymbol == ' ' || nextSymbol == '\t' || nextSymbol == '\n'){
-                        tokenStates.clear();
-                        token = "";
-                        tokenID++;
-                        dfa.reset();
-                    }
-                    else{
-                        output = "Lexical ERROR at position " + (i-2) + "\n";
-                        output += new StringBuilder(text).insert(i-2, "!~>").toString();
-                        return output;
-                    }
-                }
+                //the actual token class is the token class of the the last accepting state
+                String tokenClass = state.getTokenClass();
+
+                output += "\t<TOK>\n";
+                output += "\t\t<ID>" + tokenID + "</ID>\n";
+                output += "\t\t<CLASS>" + tokenClass + "</CLASS>\n";
+                output += "\t\t<WORD>" + token + "</WORD>\n";
+                output += "\t</TOK>\n";
+
+                //increment the tokenID for the next token
+                tokenID++;
 
             }
-            //transition defined on nextSymbol
+            //otherwise, we couldn't find a last accepting state on this run of the DFA
+            //so we have either encountered the end of file, white space, or a lexical error
+            //white space
+            else if(text.charAt(endIndex) == ' ' || text.charAt(endIndex) == '\t' || text.charAt(endIndex) == '\n' || text.charAt(endIndex) == '\r'){
+                //increment endIndex to skip over the white space
+                endIndex++;
+            }
+            //end report a lexical error
             else{
-                tokenStates.add(nextState);
-                token += nextSymbol;
+                throw new Exception("Lexical error at position " + endIndex);
             }
 
         }
