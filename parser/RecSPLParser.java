@@ -1,8 +1,6 @@
-class Main {
+public class RecSPLParser {
 
-    public static void main(String[] args) {
-
-        SLRParseTableReader.readTable("parser/SLRParseTable.html");
+    public static void parse() {
 
         // ----------------------ALL STATES----------------------//
 
@@ -177,7 +175,7 @@ class Main {
         s9.addTransition("&LT;", Action.ActionType.REDUCE, s5);
         s9.addTransition("=", Action.ActionType.REDUCE, s5);
         s9.addTransition(")", Action.ActionType.REDUCE, s5);
-        s10.addTransition("$", Action.ActionType.SHIFT, sacc);
+        s10.addAcceptTransition("$");
         s11.addTransition("NUM", Action.ActionType.SHIFT, s14);
         s11.addTransition("END", Action.ActionType.REDUCE, s47);
         s11.addTransition("VOID", Action.ActionType.SHIFT, s15);
