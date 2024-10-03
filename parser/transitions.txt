@@ -1,405 +1,405 @@
-State 0 s1 on main
-State 1 s4 on num
-State 1 s5 on text
-State 1 r1 on begin
-State 1 g2 on GLOBVARS
-State 1 g3 on VTYP
-State 2 s7 on begin
-State 2 g6 on ALGO
-State 3 s9 on V
-State 3 g8 on VNAME
-State 4 r3 on V
-State 5 r4 on V
-State 6 s14 on num
-State 6 r47 on end
-State 6 s15 on void
-State 6 r47 on $
-State 6 g10 on FUNCTIONS
-State 6 g11 on DECL
-State 6 g12 on HEADER
-State 6 g13 on FTYP
-State 7 s9 on V
-State 7 r7 on end
-State 7 s18 on skip
-State 7 s19 on halt
-State 7 s20 on print
-State 7 s24 on return
-State 7 s27 on if
-State 7 s28 on F
-State 7 g25 on VNAME
-State 7 g16 on INSTRUC
-State 7 g17 on COMMAND
-State 7 g21 on ASSIGN
-State 7 g22 on CALL
-State 7 g23 on BRANCH
-State 7 g26 on FNAME
-State 8 s29 on ,
-State 9 r5 on ,
-State 9 r5 on ;
-State 9 r5 on &lt;
-State 9 r5 on =
-State 9 r5 on )
-State 10 sacc on $
-State 11 s14 on num
-State 11 r47 on end
-State 11 s15 on void
-State 11 r47 on $
-State 11 g30 on FUNCTIONS
-State 11 g11 on DECL
-State 11 g12 on HEADER
-State 11 g13 on FTYP
-State 12 s33 on {
-State 12 g31 on BODY
-State 12 g32 on PROLOG
-State 13 s28 on F
-State 13 g34 on FNAME
-State 14 r51 on F
-State 15 r52 on F
-State 16 s35 on end
-State 17 s36 on ;
-State 18 r9 on ;
-State 19 r10 on ;
-State 20 s9 on V
-State 20 s40 on N
-State 20 s41 on T
-State 20 g38 on VNAME
-State 20 g37 on ATOMIC
-State 20 g39 on CONST
-State 21 r12 on ;
-State 22 r13 on ;
-State 23 r14 on ;
-State 24 s9 on V
-State 24 s40 on N
-State 24 s41 on T
-State 24 g38 on VNAME
-State 24 g42 on ATOMIC
-State 24 g39 on CONST
-State 25 s43 on &lt;
-State 25 s44 on =
-State 26 s45 on (
-State 27 s59 on not
-State 27 s60 on sqrt
-State 27 s51 on or
-State 27 s52 on and
-State 27 s53 on eq
-State 27 s54 on grt
-State 27 s55 on add
-State 27 s56 on sub
-State 27 s57 on mul
-State 27 s58 on div
-State 27 g46 on COND
-State 27 g47 on SIMPLE
-State 27 g48 on COMPOSIT
-State 27 g50 on UNOP
-State 27 g49 on BINOP
-State 28 r46 on (
-State 29 s4 on num
-State 29 s5 on text
-State 29 r1 on begin
-State 29 g61 on GLOBVARS
-State 29 g3 on VTYP
-State 30 r48 on end
-State 30 r48 on $
-State 31 r49 on num
-State 31 r49 on end
-State 31 r49 on void
-State 31 r49 on $
-State 32 s4 on num
-State 32 s5 on text
-State 32 g63 on VTYP
-State 32 g62 on LOCVARS
-State 33 r54 on num
-State 33 r54 on text
-State 34 s64 on (
-State 35 r6 on num
-State 35 r6 on ;
-State 35 r6 on else
-State 35 r6 on void
-State 35 r6 on }
-State 35 r6 on $
-State 36 s9 on V
-State 36 r7 on end
-State 36 s18 on skip
-State 36 s19 on halt
-State 36 s20 on print
-State 36 s24 on return
-State 36 s27 on if
-State 36 s28 on F
-State 36 g25 on VNAME
-State 36 g65 on INSTRUC
-State 36 g17 on COMMAND
-State 36 g21 on ASSIGN
-State 36 g22 on CALL
-State 36 g23 on BRANCH
-State 36 g26 on FNAME
-State 37 r11 on ;
-State 38 r16 on ,
-State 38 r16 on ;
-State 38 r16 on )
-State 39 r17 on ,
-State 39 r17 on ;
-State 39 r17 on )
-State 40 r18 on ,
-State 40 r18 on ;
-State 40 r18 on )
-State 41 r19 on ,
-State 41 r19 on ;
-State 41 r19 on )
-State 42 r15 on ;
-State 43 s66 on input
-State 44 s9 on V
-State 44 s40 on N
-State 44 s41 on T
-State 44 s59 on not
-State 44 s60 on sqrt
-State 44 s51 on or
-State 44 s52 on and
-State 44 s53 on eq
-State 44 s54 on grt
-State 44 s55 on add
-State 44 s56 on sub
-State 44 s57 on mul
-State 44 s58 on div
-State 44 s28 on F
-State 44 g38 on VNAME
-State 44 g68 on ATOMIC
-State 44 g39 on CONST
-State 44 g69 on CALL
-State 44 g67 on TERM
-State 44 g70 on OP
-State 44 g71 on UNOP
-State 44 g72 on BINOP
-State 44 g26 on FNAME
-State 45 s9 on V
-State 45 s40 on N
-State 45 s41 on T
-State 45 g38 on VNAME
-State 45 g73 on ATOMIC
-State 45 g39 on CONST
-State 46 s74 on then
-State 47 r31 on then
-State 48 r32 on then
-State 49 s75 on (
-State 50 s76 on (
-State 51 r38 on (
-State 52 r39 on (
-State 53 r40 on (
-State 54 r41 on (
-State 55 r42 on (
-State 56 r43 on (
-State 57 r44 on (
-State 58 r45 on (
-State 59 r36 on (
-State 60 r37 on (
-State 61 r2 on begin
-State 62 s7 on begin
-State 62 g77 on ALGO
-State 63 s9 on V
-State 63 g78 on VNAME
-State 64 s9 on V
-State 64 g79 on VNAME
-State 65 r8 on end
-State 66 r20 on ;
-State 67 r21 on ;
-State 68 r24 on ;
-State 69 r25 on ;
-State 70 r26 on ;
-State 71 s80 on (
-State 72 s81 on (
-State 73 s82 on ,
-State 74 s7 on begin
-State 74 g83 on ALGO
-State 75 s9 on V
-State 75 s40 on N
-State 75 s41 on T
-State 75 s51 on or
-State 75 s52 on and
-State 75 s53 on eq
-State 75 s54 on grt
-State 75 s55 on add
-State 75 s56 on sub
-State 75 s57 on mul
-State 75 s58 on div
-State 75 g38 on VNAME
-State 75 g84 on ATOMIC
-State 75 g39 on CONST
-State 75 g85 on SIMPLE
-State 75 g86 on BINOP
-State 76 s51 on or
-State 76 s52 on and
-State 76 s53 on eq
-State 76 s54 on grt
-State 76 s55 on add
-State 76 s56 on sub
-State 76 s57 on mul
-State 76 s58 on div
-State 76 g87 on SIMPLE
-State 76 g86 on BINOP
-State 77 s89 on }
-State 77 g88 on EPILOG
-State 78 s90 on ,
-State 79 s91 on ,
-State 80 s9 on V
-State 80 s40 on N
-State 80 s41 on T
-State 80 s59 on not
-State 80 s60 on sqrt
-State 80 s51 on or
-State 80 s52 on and
-State 80 s53 on eq
-State 80 s54 on grt
-State 80 s55 on add
-State 80 s56 on sub
-State 80 s57 on mul
-State 80 s58 on div
-State 80 g38 on VNAME
-State 80 g93 on ATOMIC
-State 80 g39 on CONST
-State 80 g94 on OP
-State 80 g92 on ARG
-State 80 g71 on UNOP
-State 80 g72 on BINOP
-State 81 s9 on V
-State 81 s40 on N
-State 81 s41 on T
-State 81 s59 on not
-State 81 s60 on sqrt
-State 81 s51 on or
-State 81 s52 on and
-State 81 s53 on eq
-State 81 s54 on grt
-State 81 s55 on add
-State 81 s56 on sub
-State 81 s57 on mul
-State 81 s58 on div
-State 81 g38 on VNAME
-State 81 g93 on ATOMIC
-State 81 g39 on CONST
-State 81 g94 on OP
-State 81 g95 on ARG
-State 81 g71 on UNOP
-State 81 g72 on BINOP
-State 82 s9 on V
-State 82 s40 on N
-State 82 s41 on T
-State 82 g38 on VNAME
-State 82 g96 on ATOMIC
-State 82 g39 on CONST
-State 83 s97 on else
-State 84 s98 on ,
-State 85 s99 on ,
-State 86 s100 on (
-State 87 s101 on )
-State 88 s14 on num
-State 88 r47 on end
-State 88 s15 on void
-State 88 r47 on $
-State 88 g103 on FUNCTIONS
-State 88 g11 on DECL
-State 88 g12 on HEADER
-State 88 g13 on FTYP
-State 88 g102 on SUBFUNCS
-State 89 r55 on num
-State 89 r55 on end
-State 89 r55 on void
-State 89 r55 on $
-State 90 s4 on num
-State 90 s5 on text
-State 90 g104 on VTYP
-State 91 s9 on V
-State 91 g105 on VNAME
-State 92 s106 on )
-State 93 r29 on ,
-State 93 r29 on )
-State 94 r30 on ,
-State 94 r30 on )
-State 95 s107 on ,
-State 96 s108 on ,
-State 97 s7 on begin
-State 97 g109 on ALGO
-State 98 s9 on V
-State 98 s40 on N
-State 98 s41 on T
-State 98 g38 on VNAME
-State 98 g110 on ATOMIC
-State 98 g39 on CONST
-State 99 s51 on or
-State 99 s52 on and
-State 99 s53 on eq
-State 99 s54 on grt
-State 99 s55 on add
-State 99 s56 on sub
-State 99 s57 on mul
-State 99 s58 on div
-State 99 g111 on SIMPLE
-State 99 g86 on BINOP
-State 100 s9 on V
-State 100 s40 on N
-State 100 s41 on T
-State 100 g38 on VNAME
-State 100 g84 on ATOMIC
-State 100 g39 on CONST
-State 101 r35 on then
-State 102 s112 on end
-State 103 r57 on end
-State 104 s9 on V
-State 104 g113 on VNAME
-State 105 s114 on ,
-State 106 r27 on ,
-State 106 r27 on ;
-State 106 r27 on )
-State 107 s9 on V
-State 107 s40 on N
-State 107 s41 on T
-State 107 s59 on not
-State 107 s60 on sqrt
-State 107 s51 on or
-State 107 s52 on and
-State 107 s53 on eq
-State 107 s54 on grt
-State 107 s55 on add
-State 107 s56 on sub
-State 107 s57 on mul
-State 107 s58 on div
-State 107 g38 on VNAME
-State 107 g93 on ATOMIC
-State 107 g39 on CONST
-State 107 g94 on OP
-State 107 g115 on ARG
-State 107 g71 on UNOP
-State 107 g72 on BINOP
-State 108 s9 on V
-State 108 s40 on N
-State 108 s41 on T
-State 108 g38 on VNAME
-State 108 g116 on ATOMIC
-State 108 g39 on CONST
-State 109 r23 on ;
-State 110 s117 on )
-State 111 s118 on )
-State 112 r53 on num
-State 112 r53 on end
-State 112 r53 on void
-State 112 r53 on $
-State 113 s119 on ,
-State 114 s9 on V
-State 114 g120 on VNAME
-State 115 s121 on )
-State 116 s122 on )
-State 117 r33 on ,
-State 117 r33 on )
-State 117 r33 on then
-State 118 r34 on then
-State 119 s4 on num
-State 119 s5 on text
-State 119 g123 on VTYP
-State 120 s124 on )
-State 121 r28 on ,
-State 121 r28 on ;
-State 121 r28 on )
-State 122 r22 on ;
-State 123 s9 on V
-State 123 g125 on VNAME
-State 124 r50 on {
-State 125 s126 on ,
-State 126 r56 on begin
+State 0 SHIFT 1 on MAIN
+State 1 SHIFT 4 on NUM
+State 1 SHIFT 5 on TEXT
+State 1 REDUCE 1 on BEGIN
+State 1 GOTO 2 on GLOBVARS
+State 1 GOTO 3 on VTYP
+State 2 SHIFT 7 on BEGIN
+State 2 GOTO 6 on ALGO
+State 3 SHIFT 9 on V
+State 3 GOTO 8 on VNAME
+State 4 REDUCE 3 on V
+State 5 REDUCE 4 on V
+State 6 SHIFT 14 on NUM
+State 6 REDUCE 47 on END
+State 6 SHIFT 15 on VOID
+State 6 REDUCE 47 on $
+State 6 GOTO 10 on FUNCTIONS
+State 6 GOTO 11 on DECL
+State 6 GOTO 12 on HEADER
+State 6 GOTO 13 on FTYP
+State 7 SHIFT 9 on V
+State 7 REDUCE 7 on END
+State 7 SHIFT 18 on SKIP
+State 7 SHIFT 19 on HALT
+State 7 SHIFT 20 on PRINT
+State 7 SHIFT 24 on RETURN
+State 7 SHIFT 27 on IF
+State 7 SHIFT 28 on F
+State 7 GOTO 25 on VNAME
+State 7 GOTO 16 on INSTRUC
+State 7 GOTO 17 on COMMAND
+State 7 GOTO 21 on ASSIGN
+State 7 GOTO 22 on CALL
+State 7 GOTO 23 on BRANCH
+State 7 GOTO 26 on FNAME
+State 8 SHIFT 29 on ,
+State 9 REDUCE 5 on ,
+State 9 REDUCE 5 on ;
+State 9 REDUCE 5 on &LT;
+State 9 REDUCE 5 on =
+State 9 REDUCE 5 on )
+State 10 SHIFT acc on $
+State 11 SHIFT 14 on NUM
+State 11 REDUCE 47 on END
+State 11 SHIFT 15 on VOID
+State 11 REDUCE 47 on $
+State 11 GOTO 30 on FUNCTIONS
+State 11 GOTO 11 on DECL
+State 11 GOTO 12 on HEADER
+State 11 GOTO 13 on FTYP
+State 12 SHIFT 33 on {
+State 12 GOTO 31 on BODY
+State 12 GOTO 32 on PROLOG
+State 13 SHIFT 28 on F
+State 13 GOTO 34 on FNAME
+State 14 REDUCE 51 on F
+State 15 REDUCE 52 on F
+State 16 SHIFT 35 on END
+State 17 SHIFT 36 on ;
+State 18 REDUCE 9 on ;
+State 19 REDUCE 10 on ;
+State 20 SHIFT 9 on V
+State 20 SHIFT 40 on N
+State 20 SHIFT 41 on T
+State 20 GOTO 38 on VNAME
+State 20 GOTO 37 on ATOMIC
+State 20 GOTO 39 on CONST
+State 21 REDUCE 12 on ;
+State 22 REDUCE 13 on ;
+State 23 REDUCE 14 on ;
+State 24 SHIFT 9 on V
+State 24 SHIFT 40 on N
+State 24 SHIFT 41 on T
+State 24 GOTO 38 on VNAME
+State 24 GOTO 42 on ATOMIC
+State 24 GOTO 39 on CONST
+State 25 SHIFT 43 on &LT;
+State 25 SHIFT 44 on =
+State 26 SHIFT 45 on (
+State 27 SHIFT 59 on NOT
+State 27 SHIFT 60 on SQRT
+State 27 SHIFT 51 on OR
+State 27 SHIFT 52 on AND
+State 27 SHIFT 53 on EQ
+State 27 SHIFT 54 on GRT
+State 27 SHIFT 55 on ADD
+State 27 SHIFT 56 on SUB
+State 27 SHIFT 57 on MUL
+State 27 SHIFT 58 on DIV
+State 27 GOTO 46 on COND
+State 27 GOTO 47 on SIMPLE
+State 27 GOTO 48 on COMPOSIT
+State 27 GOTO 50 on UNOP
+State 27 GOTO 49 on BINOP
+State 28 REDUCE 46 on (
+State 29 SHIFT 4 on NUM
+State 29 SHIFT 5 on TEXT
+State 29 REDUCE 1 on BEGIN
+State 29 GOTO 61 on GLOBVARS
+State 29 GOTO 3 on VTYP
+State 30 REDUCE 48 on END
+State 30 REDUCE 48 on $
+State 31 REDUCE 49 on NUM
+State 31 REDUCE 49 on END
+State 31 REDUCE 49 on VOID
+State 31 REDUCE 49 on $
+State 32 SHIFT 4 on NUM
+State 32 SHIFT 5 on TEXT
+State 32 GOTO 63 on VTYP
+State 32 GOTO 62 on LOCVARS
+State 33 REDUCE 54 on NUM
+State 33 REDUCE 54 on TEXT
+State 34 SHIFT 64 on (
+State 35 REDUCE 6 on NUM
+State 35 REDUCE 6 on ;
+State 35 REDUCE 6 on ELSE
+State 35 REDUCE 6 on VOID
+State 35 REDUCE 6 on }
+State 35 REDUCE 6 on $
+State 36 SHIFT 9 on V
+State 36 REDUCE 7 on END
+State 36 SHIFT 18 on SKIP
+State 36 SHIFT 19 on HALT
+State 36 SHIFT 20 on PRINT
+State 36 SHIFT 24 on RETURN
+State 36 SHIFT 27 on IF
+State 36 SHIFT 28 on F
+State 36 GOTO 25 on VNAME
+State 36 GOTO 65 on INSTRUC
+State 36 GOTO 17 on COMMAND
+State 36 GOTO 21 on ASSIGN
+State 36 GOTO 22 on CALL
+State 36 GOTO 23 on BRANCH
+State 36 GOTO 26 on FNAME
+State 37 REDUCE 11 on ;
+State 38 REDUCE 16 on ,
+State 38 REDUCE 16 on ;
+State 38 REDUCE 16 on )
+State 39 REDUCE 17 on ,
+State 39 REDUCE 17 on ;
+State 39 REDUCE 17 on )
+State 40 REDUCE 18 on ,
+State 40 REDUCE 18 on ;
+State 40 REDUCE 18 on )
+State 41 REDUCE 19 on ,
+State 41 REDUCE 19 on ;
+State 41 REDUCE 19 on )
+State 42 REDUCE 15 on ;
+State 43 SHIFT 66 on INPUT
+State 44 SHIFT 9 on V
+State 44 SHIFT 40 on N
+State 44 SHIFT 41 on T
+State 44 SHIFT 59 on NOT
+State 44 SHIFT 60 on SQRT
+State 44 SHIFT 51 on OR
+State 44 SHIFT 52 on AND
+State 44 SHIFT 53 on EQ
+State 44 SHIFT 54 on GRT
+State 44 SHIFT 55 on ADD
+State 44 SHIFT 56 on SUB
+State 44 SHIFT 57 on MUL
+State 44 SHIFT 58 on DIV
+State 44 SHIFT 28 on F
+State 44 GOTO 38 on VNAME
+State 44 GOTO 68 on ATOMIC
+State 44 GOTO 39 on CONST
+State 44 GOTO 69 on CALL
+State 44 GOTO 67 on TERM
+State 44 GOTO 70 on OP
+State 44 GOTO 71 on UNOP
+State 44 GOTO 72 on BINOP
+State 44 GOTO 26 on FNAME
+State 45 SHIFT 9 on V
+State 45 SHIFT 40 on N
+State 45 SHIFT 41 on T
+State 45 GOTO 38 on VNAME
+State 45 GOTO 73 on ATOMIC
+State 45 GOTO 39 on CONST
+State 46 SHIFT 74 on THEN
+State 47 REDUCE 31 on THEN
+State 48 REDUCE 32 on THEN
+State 49 SHIFT 75 on (
+State 50 SHIFT 76 on (
+State 51 REDUCE 38 on (
+State 52 REDUCE 39 on (
+State 53 REDUCE 40 on (
+State 54 REDUCE 41 on (
+State 55 REDUCE 42 on (
+State 56 REDUCE 43 on (
+State 57 REDUCE 44 on (
+State 58 REDUCE 45 on (
+State 59 REDUCE 36 on (
+State 60 REDUCE 37 on (
+State 61 REDUCE 2 on BEGIN
+State 62 SHIFT 7 on BEGIN
+State 62 GOTO 77 on ALGO
+State 63 SHIFT 9 on V
+State 63 GOTO 78 on VNAME
+State 64 SHIFT 9 on V
+State 64 GOTO 79 on VNAME
+State 65 REDUCE 8 on END
+State 66 REDUCE 20 on ;
+State 67 REDUCE 21 on ;
+State 68 REDUCE 24 on ;
+State 69 REDUCE 25 on ;
+State 70 REDUCE 26 on ;
+State 71 SHIFT 80 on (
+State 72 SHIFT 81 on (
+State 73 SHIFT 82 on ,
+State 74 SHIFT 7 on BEGIN
+State 74 GOTO 83 on ALGO
+State 75 SHIFT 9 on V
+State 75 SHIFT 40 on N
+State 75 SHIFT 41 on T
+State 75 SHIFT 51 on OR
+State 75 SHIFT 52 on AND
+State 75 SHIFT 53 on EQ
+State 75 SHIFT 54 on GRT
+State 75 SHIFT 55 on ADD
+State 75 SHIFT 56 on SUB
+State 75 SHIFT 57 on MUL
+State 75 SHIFT 58 on DIV
+State 75 GOTO 38 on VNAME
+State 75 GOTO 84 on ATOMIC
+State 75 GOTO 39 on CONST
+State 75 GOTO 85 on SIMPLE
+State 75 GOTO 86 on BINOP
+State 76 SHIFT 51 on OR
+State 76 SHIFT 52 on AND
+State 76 SHIFT 53 on EQ
+State 76 SHIFT 54 on GRT
+State 76 SHIFT 55 on ADD
+State 76 SHIFT 56 on SUB
+State 76 SHIFT 57 on MUL
+State 76 SHIFT 58 on DIV
+State 76 GOTO 87 on SIMPLE
+State 76 GOTO 86 on BINOP
+State 77 SHIFT 89 on }
+State 77 GOTO 88 on EPILOG
+State 78 SHIFT 90 on ,
+State 79 SHIFT 91 on ,
+State 80 SHIFT 9 on V
+State 80 SHIFT 40 on N
+State 80 SHIFT 41 on T
+State 80 SHIFT 59 on NOT
+State 80 SHIFT 60 on SQRT
+State 80 SHIFT 51 on OR
+State 80 SHIFT 52 on AND
+State 80 SHIFT 53 on EQ
+State 80 SHIFT 54 on GRT
+State 80 SHIFT 55 on ADD
+State 80 SHIFT 56 on SUB
+State 80 SHIFT 57 on MUL
+State 80 SHIFT 58 on DIV
+State 80 GOTO 38 on VNAME
+State 80 GOTO 93 on ATOMIC
+State 80 GOTO 39 on CONST
+State 80 GOTO 94 on OP
+State 80 GOTO 92 on ARG
+State 80 GOTO 71 on UNOP
+State 80 GOTO 72 on BINOP
+State 81 SHIFT 9 on V
+State 81 SHIFT 40 on N
+State 81 SHIFT 41 on T
+State 81 SHIFT 59 on NOT
+State 81 SHIFT 60 on SQRT
+State 81 SHIFT 51 on OR
+State 81 SHIFT 52 on AND
+State 81 SHIFT 53 on EQ
+State 81 SHIFT 54 on GRT
+State 81 SHIFT 55 on ADD
+State 81 SHIFT 56 on SUB
+State 81 SHIFT 57 on MUL
+State 81 SHIFT 58 on DIV
+State 81 GOTO 38 on VNAME
+State 81 GOTO 93 on ATOMIC
+State 81 GOTO 39 on CONST
+State 81 GOTO 94 on OP
+State 81 GOTO 95 on ARG
+State 81 GOTO 71 on UNOP
+State 81 GOTO 72 on BINOP
+State 82 SHIFT 9 on V
+State 82 SHIFT 40 on N
+State 82 SHIFT 41 on T
+State 82 GOTO 38 on VNAME
+State 82 GOTO 96 on ATOMIC
+State 82 GOTO 39 on CONST
+State 83 SHIFT 97 on ELSE
+State 84 SHIFT 98 on ,
+State 85 SHIFT 99 on ,
+State 86 SHIFT 100 on (
+State 87 SHIFT 101 on )
+State 88 SHIFT 14 on NUM
+State 88 REDUCE 47 on END
+State 88 SHIFT 15 on VOID
+State 88 REDUCE 47 on $
+State 88 GOTO 103 on FUNCTIONS
+State 88 GOTO 11 on DECL
+State 88 GOTO 12 on HEADER
+State 88 GOTO 13 on FTYP
+State 88 GOTO 102 on SUBFUNCS
+State 89 REDUCE 55 on NUM
+State 89 REDUCE 55 on END
+State 89 REDUCE 55 on VOID
+State 89 REDUCE 55 on $
+State 90 SHIFT 4 on NUM
+State 90 SHIFT 5 on TEXT
+State 90 GOTO 104 on VTYP
+State 91 SHIFT 9 on V
+State 91 GOTO 105 on VNAME
+State 92 SHIFT 106 on )
+State 93 REDUCE 29 on ,
+State 93 REDUCE 29 on )
+State 94 REDUCE 30 on ,
+State 94 REDUCE 30 on )
+State 95 SHIFT 107 on ,
+State 96 SHIFT 108 on ,
+State 97 SHIFT 7 on BEGIN
+State 97 GOTO 109 on ALGO
+State 98 SHIFT 9 on V
+State 98 SHIFT 40 on N
+State 98 SHIFT 41 on T
+State 98 GOTO 38 on VNAME
+State 98 GOTO 110 on ATOMIC
+State 98 GOTO 39 on CONST
+State 99 SHIFT 51 on OR
+State 99 SHIFT 52 on AND
+State 99 SHIFT 53 on EQ
+State 99 SHIFT 54 on GRT
+State 99 SHIFT 55 on ADD
+State 99 SHIFT 56 on SUB
+State 99 SHIFT 57 on MUL
+State 99 SHIFT 58 on DIV
+State 99 GOTO 111 on SIMPLE
+State 99 GOTO 86 on BINOP
+State 100 SHIFT 9 on V
+State 100 SHIFT 40 on N
+State 100 SHIFT 41 on T
+State 100 GOTO 38 on VNAME
+State 100 GOTO 84 on ATOMIC
+State 100 GOTO 39 on CONST
+State 101 REDUCE 35 on THEN
+State 102 SHIFT 112 on END
+State 103 REDUCE 57 on END
+State 104 SHIFT 9 on V
+State 104 GOTO 113 on VNAME
+State 105 SHIFT 114 on ,
+State 106 REDUCE 27 on ,
+State 106 REDUCE 27 on ;
+State 106 REDUCE 27 on )
+State 107 SHIFT 9 on V
+State 107 SHIFT 40 on N
+State 107 SHIFT 41 on T
+State 107 SHIFT 59 on NOT
+State 107 SHIFT 60 on SQRT
+State 107 SHIFT 51 on OR
+State 107 SHIFT 52 on AND
+State 107 SHIFT 53 on EQ
+State 107 SHIFT 54 on GRT
+State 107 SHIFT 55 on ADD
+State 107 SHIFT 56 on SUB
+State 107 SHIFT 57 on MUL
+State 107 SHIFT 58 on DIV
+State 107 GOTO 38 on VNAME
+State 107 GOTO 93 on ATOMIC
+State 107 GOTO 39 on CONST
+State 107 GOTO 94 on OP
+State 107 GOTO 115 on ARG
+State 107 GOTO 71 on UNOP
+State 107 GOTO 72 on BINOP
+State 108 SHIFT 9 on V
+State 108 SHIFT 40 on N
+State 108 SHIFT 41 on T
+State 108 GOTO 38 on VNAME
+State 108 GOTO 116 on ATOMIC
+State 108 GOTO 39 on CONST
+State 109 REDUCE 23 on ;
+State 110 SHIFT 117 on )
+State 111 SHIFT 118 on )
+State 112 REDUCE 53 on NUM
+State 112 REDUCE 53 on END
+State 112 REDUCE 53 on VOID
+State 112 REDUCE 53 on $
+State 113 SHIFT 119 on ,
+State 114 SHIFT 9 on V
+State 114 GOTO 120 on VNAME
+State 115 SHIFT 121 on )
+State 116 SHIFT 122 on )
+State 117 REDUCE 33 on ,
+State 117 REDUCE 33 on )
+State 117 REDUCE 33 on THEN
+State 118 REDUCE 34 on THEN
+State 119 SHIFT 4 on NUM
+State 119 SHIFT 5 on TEXT
+State 119 GOTO 123 on VTYP
+State 120 SHIFT 124 on )
+State 121 REDUCE 28 on ,
+State 121 REDUCE 28 on ;
+State 121 REDUCE 28 on )
+State 122 REDUCE 22 on ;
+State 123 SHIFT 9 on V
+State 123 GOTO 125 on VNAME
+State 124 REDUCE 50 on {
+State 125 SHIFT 126 on ,
+State 126 REDUCE 56 on BEGIN

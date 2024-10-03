@@ -100,15 +100,15 @@ public class SLRParseTableReader {
                 } else if (line.contains("span") && columnNumber < 37) {
                     String[] arr = line.split("\">");
                     String[] arr2 = arr[1].split("<");
-                    System.out.println("State " + rowNumber + " s" + arr2[0] + " on " + headingArray[columnNumber]);
+                    System.out.println("s" + rowNumber + ".addTransition(\"" + headingArray[columnNumber].toUpperCase() + "\", Action.ActionType.SHIFT, s" + arr2[0] + ");" );
                 } else if (line.contains("span")) {
                     String[] arr = line.split("\">");
                     String[] arr2 = arr[1].split("<");
-                    System.out.println("State " + rowNumber + " g" + arr2[0] + " on " + headingArray[columnNumber]);
+                    System.out.println("s" + rowNumber + ".addTransition(\"" + headingArray[columnNumber].toUpperCase() + "\", Action.ActionType.GOTO, s" + arr2[0] + ");" );
                 } else if (line.contains("sub")) {
                     String[] arr = line.split("\">");
                     String[] arr2 = arr[1].split("<");
-                    System.out.println("State " + rowNumber + " r" + arr2[0] + " on " + headingArray[columnNumber]);
+                    System.out.println("s" + rowNumber + ".addTransition(\"" + headingArray[columnNumber].toUpperCase() + "\", Action.ActionType.REDUCE, s" + arr2[0] + ");" );
                 }
                 lineNumber++;
                 columnNumber++;
