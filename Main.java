@@ -417,7 +417,12 @@ public class Main{
 
         Lexer l = new Lexer(new DFA(start));
         long begin = System.currentTimeMillis();
-        String lexResult = l.lex("0.0009000V_abc");
+        String lexResult;
+        try{
+            lexResult = l.lex("F_a V_b num begin end");
+        }catch(Exception e){
+            lexResult = e.toString();
+        }
         long end = System.currentTimeMillis();
         long time = end - begin;
         System.out.println(lexResult);
