@@ -1,4 +1,4 @@
-public class Action {
+public abstract class Action {
 
     public enum ActionType {
         SHIFT,
@@ -8,19 +8,13 @@ public class Action {
     }
 
     private ActionType actionType;
-    private State nextState;
 
-    public Action(ActionType actionType, State nextState){
+    public Action(ActionType actionType){
         this.actionType = actionType;
-        this.nextState = nextState;
     }
 
     public ActionType getActionType(){
         return this.actionType;
-    }
-
-    public State getNextState(){
-        return this.nextState;
     }
     
 }

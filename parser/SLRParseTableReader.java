@@ -97,18 +97,20 @@ public class SLRParseTableReader {
                 if (line.contains("<tr>")) {
                     rowNumber++;
                     columnNumber = -2;
+                }else if (line.contains("acc")) {
+                    System.out.println("s" + rowNumber + ".addTransition(\"" + headingArray[columnNumber].toUpperCase() + "\", new AcceptAction());" ); 
                 } else if (line.contains("span") && columnNumber < 37) {
                     String[] arr = line.split("\">");
                     String[] arr2 = arr[1].split("<");
-                    System.out.println("s" + rowNumber + ".addTransition(\"" + headingArray[columnNumber].toUpperCase() + "\", Action.ActionType.SHIFT, s" + arr2[0] + ");" );
+                    System.out.println("s" + rowNumber + ".addTransition(\"" + headingArray[columnNumber].toUpperCase() + "\", new ShiftAction(s" + arr2[0] + "));" );
                 } else if (line.contains("span")) {
                     String[] arr = line.split("\">");
                     String[] arr2 = arr[1].split("<");
-                    System.out.println("s" + rowNumber + ".addTransition(\"" + headingArray[columnNumber].toUpperCase() + "\", Action.ActionType.GOTO, s" + arr2[0] + ");" );
+                    System.out.println("s" + rowNumber + ".addTransition(\"" + headingArray[columnNumber].toUpperCase() + "\", new GotoAction(s" + arr2[0] + "));" );
                 } else if (line.contains("sub")) {
                     String[] arr = line.split("\">");
                     String[] arr2 = arr[1].split("<");
-                    System.out.println("s" + rowNumber + ".addTransition(\"" + headingArray[columnNumber].toUpperCase() + "\", Action.ActionType.REDUCE, s" + arr2[0] + ");" );
+                    System.out.println("s" + rowNumber + ".addTransition(\"" + headingArray[columnNumber].toUpperCase() + "\", new ReduceAction(p" + arr2[0] + "));" );
                 }
                 lineNumber++;
                 columnNumber++;

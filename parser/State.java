@@ -19,12 +19,8 @@ public class State {
         return this.transitionFunction.get(token);
     }
 
-    public void addTransition(String token, Action.ActionType actionType, State toState){
-        this.transitionFunction.put(token, new Action(actionType, toState));
-    }
-
-    public void addAcceptTransition(String token){
-        this.transitionFunction.put(token, new AcceptAction());
+    public void addTransition(String token, Action action){
+        this.transitionFunction.put(token, action);
     }
     
 }

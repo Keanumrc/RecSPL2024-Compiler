@@ -36,7 +36,7 @@ State 7 GOTO 26 on FNAME
 State 8 SHIFT 29 on ,
 State 9 REDUCE 5 on ,
 State 9 REDUCE 5 on ;
-State 9 REDUCE 5 on &LT;
+State 9 REDUCE 5 on <
 State 9 REDUCE 5 on =
 State 9 REDUCE 5 on )
 State 10 SHIFT acc on $
@@ -74,7 +74,7 @@ State 24 SHIFT 41 on T
 State 24 GOTO 38 on VNAME
 State 24 GOTO 42 on ATOMIC
 State 24 GOTO 39 on CONST
-State 25 SHIFT 43 on &LT;
+State 25 SHIFT 43 on <
 State 25 SHIFT 44 on =
 State 26 SHIFT 45 on (
 State 27 SHIFT 59 on NOT
