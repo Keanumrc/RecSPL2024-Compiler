@@ -1,5 +1,6 @@
 package lexer;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Lexer {
 
@@ -11,13 +12,13 @@ public class Lexer {
         this.dfa = dfa;
     }
 
-    public String lex(String text) throws Exception{
+    public List<Token> lex(String text) throws Exception{
 
         //append an end of file (EOF) symbol at the end of text to detect when we have reached the end
         text += '$';
 
         //initialisation
-        String output = "<TOKENSTREAM>\n";
+        List<Token> output = new ArrayList<Token>();
         int tokenID = 1;
         ArrayList<State> previousStates = new ArrayList<>();
         int startIndex = 0;
@@ -68,11 +69,7 @@ public class Lexer {
                 //the actual token class is the token class of the the last accepting state
                 String tokenClass = state.getTokenClass();
 
-                output += "\t<TOK>\n";
-                output += "\t\t<ID>" + tokenID + "</ID>\n";
-                output += "\t\t<CLASS>" + tokenClass + "</CLASS>\n";
-                output += "\t\t<WORD>" + token + "</WORD>\n";
-                output += "\t</TOK>\n";
+                output.add(new Token(tokenClass, token));
 
                 //increment the tokenID for the next token
                 tokenID++;
@@ -92,7 +89,7 @@ public class Lexer {
 
         }
 
-        return output + "</TOKENSTREAM>\n";
+        return output;
 
     }
     

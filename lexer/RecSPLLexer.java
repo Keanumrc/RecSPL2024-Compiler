@@ -1,8 +1,10 @@
 package lexer;
 
+import java.util.List;
+
 public class RecSPLLexer{
 
-    public static void lex(){
+    public static List<Token> lex(String text) throws Exception{
 
         //----------------------NUMBER CLASS STATES----------------------//
 
@@ -418,17 +420,7 @@ public class RecSPLLexer{
         start.addTransition('}', rightBrace);
 
         Lexer l = new Lexer(new DFA(start));
-        long begin = System.currentTimeMillis();
-        String lexResult;
-        try{
-            lexResult = l.lex("F_a V_b num begin end");
-        }catch(Exception e){
-            lexResult = e.toString();
-        }
-        long end = System.currentTimeMillis();
-        long time = end - begin;
-        System.out.println(lexResult);
-        System.out.println("TIME: " + time + "ms");
+        return l.lex(text);
 
     }
 
