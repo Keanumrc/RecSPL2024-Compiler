@@ -1,3 +1,4 @@
+package lexer;
 import java.util.ArrayList;
 
 public class Lexer {
