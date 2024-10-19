@@ -30,13 +30,22 @@ public class SyntaxTreeNode {
     @Override
     public String toString(){
 
-        String output = "<>\n<label>" + label + "</label>\n";
+        String printedLabel = "";
+
+        if(label == "<"){
+            printedLabel = "&lt;";
+        }
+        else{
+            printedLabel = label;
+        }
+
+        String output = "<node>\n<label>" + printedLabel + "</label>\n";
 
         for(SyntaxTreeNode child : children){
             output += child.toString();
         }
 
-        return output + "</>\n";
+        return output + "</node>\n";
 
     }
     

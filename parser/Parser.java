@@ -50,7 +50,7 @@ public class Parser {
                 //pop the same number of states from the stack as there are tokens on the rhs of the action's production
                 for(int j = 0; j < actionProduction.getRhs().length; j++){
                     stack.pop();
-                    nodes[j] = treeStack.pop();
+                    nodes[actionProduction.getRhs().length-1-j] = treeStack.pop();
                 }
 
                 //get the production's lhs
