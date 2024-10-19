@@ -1,405 +1,407 @@
-State 0 SHIFT 1 on MAIN
-State 1 SHIFT 4 on NUM
-State 1 SHIFT 5 on TEXT
-State 1 REDUCE 1 on BEGIN
-State 1 GOTO 2 on GLOBVARS
-State 1 GOTO 3 on VTYP
-State 2 SHIFT 7 on BEGIN
-State 2 GOTO 6 on ALGO
-State 3 SHIFT 9 on V
-State 3 GOTO 8 on VNAME
-State 4 REDUCE 3 on V
-State 5 REDUCE 4 on V
-State 6 SHIFT 14 on NUM
-State 6 REDUCE 47 on END
-State 6 SHIFT 15 on VOID
-State 6 REDUCE 47 on $
-State 6 GOTO 10 on FUNCTIONS
-State 6 GOTO 11 on DECL
-State 6 GOTO 12 on HEADER
-State 6 GOTO 13 on FTYP
-State 7 SHIFT 9 on V
-State 7 REDUCE 7 on END
-State 7 SHIFT 18 on SKIP
-State 7 SHIFT 19 on HALT
-State 7 SHIFT 20 on PRINT
-State 7 SHIFT 24 on RETURN
-State 7 SHIFT 27 on IF
-State 7 SHIFT 28 on F
-State 7 GOTO 25 on VNAME
-State 7 GOTO 16 on INSTRUC
-State 7 GOTO 17 on COMMAND
-State 7 GOTO 21 on ASSIGN
-State 7 GOTO 22 on CALL
-State 7 GOTO 23 on BRANCH
-State 7 GOTO 26 on FNAME
-State 8 SHIFT 29 on ,
-State 9 REDUCE 5 on ,
-State 9 REDUCE 5 on ;
-State 9 REDUCE 5 on <
-State 9 REDUCE 5 on =
-State 9 REDUCE 5 on )
-State 10 SHIFT acc on $
-State 11 SHIFT 14 on NUM
-State 11 REDUCE 47 on END
-State 11 SHIFT 15 on VOID
-State 11 REDUCE 47 on $
-State 11 GOTO 30 on FUNCTIONS
-State 11 GOTO 11 on DECL
-State 11 GOTO 12 on HEADER
-State 11 GOTO 13 on FTYP
-State 12 SHIFT 33 on {
-State 12 GOTO 31 on BODY
-State 12 GOTO 32 on PROLOG
-State 13 SHIFT 28 on F
-State 13 GOTO 34 on FNAME
-State 14 REDUCE 51 on F
-State 15 REDUCE 52 on F
-State 16 SHIFT 35 on END
-State 17 SHIFT 36 on ;
-State 18 REDUCE 9 on ;
-State 19 REDUCE 10 on ;
-State 20 SHIFT 9 on V
-State 20 SHIFT 40 on N
-State 20 SHIFT 41 on T
-State 20 GOTO 38 on VNAME
-State 20 GOTO 37 on ATOMIC
-State 20 GOTO 39 on CONST
-State 21 REDUCE 12 on ;
-State 22 REDUCE 13 on ;
-State 23 REDUCE 14 on ;
-State 24 SHIFT 9 on V
-State 24 SHIFT 40 on N
-State 24 SHIFT 41 on T
-State 24 GOTO 38 on VNAME
-State 24 GOTO 42 on ATOMIC
-State 24 GOTO 39 on CONST
-State 25 SHIFT 43 on <
-State 25 SHIFT 44 on =
-State 26 SHIFT 45 on (
-State 27 SHIFT 59 on NOT
-State 27 SHIFT 60 on SQRT
-State 27 SHIFT 51 on OR
-State 27 SHIFT 52 on AND
-State 27 SHIFT 53 on EQ
-State 27 SHIFT 54 on GRT
-State 27 SHIFT 55 on ADD
-State 27 SHIFT 56 on SUB
-State 27 SHIFT 57 on MUL
-State 27 SHIFT 58 on DIV
-State 27 GOTO 46 on COND
-State 27 GOTO 47 on SIMPLE
-State 27 GOTO 48 on COMPOSIT
-State 27 GOTO 50 on UNOP
-State 27 GOTO 49 on BINOP
-State 28 REDUCE 46 on (
-State 29 SHIFT 4 on NUM
-State 29 SHIFT 5 on TEXT
-State 29 REDUCE 1 on BEGIN
-State 29 GOTO 61 on GLOBVARS
-State 29 GOTO 3 on VTYP
-State 30 REDUCE 48 on END
-State 30 REDUCE 48 on $
-State 31 REDUCE 49 on NUM
-State 31 REDUCE 49 on END
-State 31 REDUCE 49 on VOID
-State 31 REDUCE 49 on $
-State 32 SHIFT 4 on NUM
-State 32 SHIFT 5 on TEXT
-State 32 GOTO 63 on VTYP
-State 32 GOTO 62 on LOCVARS
-State 33 REDUCE 54 on NUM
-State 33 REDUCE 54 on TEXT
-State 34 SHIFT 64 on (
-State 35 REDUCE 6 on NUM
-State 35 REDUCE 6 on ;
-State 35 REDUCE 6 on ELSE
-State 35 REDUCE 6 on VOID
-State 35 REDUCE 6 on }
-State 35 REDUCE 6 on $
-State 36 SHIFT 9 on V
-State 36 REDUCE 7 on END
-State 36 SHIFT 18 on SKIP
-State 36 SHIFT 19 on HALT
-State 36 SHIFT 20 on PRINT
-State 36 SHIFT 24 on RETURN
-State 36 SHIFT 27 on IF
-State 36 SHIFT 28 on F
-State 36 GOTO 25 on VNAME
-State 36 GOTO 65 on INSTRUC
-State 36 GOTO 17 on COMMAND
-State 36 GOTO 21 on ASSIGN
-State 36 GOTO 22 on CALL
-State 36 GOTO 23 on BRANCH
-State 36 GOTO 26 on FNAME
-State 37 REDUCE 11 on ;
-State 38 REDUCE 16 on ,
-State 38 REDUCE 16 on ;
-State 38 REDUCE 16 on )
-State 39 REDUCE 17 on ,
-State 39 REDUCE 17 on ;
-State 39 REDUCE 17 on )
-State 40 REDUCE 18 on ,
-State 40 REDUCE 18 on ;
-State 40 REDUCE 18 on )
-State 41 REDUCE 19 on ,
-State 41 REDUCE 19 on ;
-State 41 REDUCE 19 on )
-State 42 REDUCE 15 on ;
-State 43 SHIFT 66 on INPUT
-State 44 SHIFT 9 on V
-State 44 SHIFT 40 on N
-State 44 SHIFT 41 on T
-State 44 SHIFT 59 on NOT
-State 44 SHIFT 60 on SQRT
-State 44 SHIFT 51 on OR
-State 44 SHIFT 52 on AND
-State 44 SHIFT 53 on EQ
-State 44 SHIFT 54 on GRT
-State 44 SHIFT 55 on ADD
-State 44 SHIFT 56 on SUB
-State 44 SHIFT 57 on MUL
-State 44 SHIFT 58 on DIV
-State 44 SHIFT 28 on F
-State 44 GOTO 38 on VNAME
-State 44 GOTO 68 on ATOMIC
-State 44 GOTO 39 on CONST
-State 44 GOTO 69 on CALL
-State 44 GOTO 67 on TERM
-State 44 GOTO 70 on OP
-State 44 GOTO 71 on UNOP
-State 44 GOTO 72 on BINOP
-State 44 GOTO 26 on FNAME
-State 45 SHIFT 9 on V
-State 45 SHIFT 40 on N
-State 45 SHIFT 41 on T
-State 45 GOTO 38 on VNAME
-State 45 GOTO 73 on ATOMIC
-State 45 GOTO 39 on CONST
-State 46 SHIFT 74 on THEN
-State 47 REDUCE 31 on THEN
-State 48 REDUCE 32 on THEN
-State 49 SHIFT 75 on (
-State 50 SHIFT 76 on (
-State 51 REDUCE 38 on (
-State 52 REDUCE 39 on (
-State 53 REDUCE 40 on (
-State 54 REDUCE 41 on (
-State 55 REDUCE 42 on (
-State 56 REDUCE 43 on (
-State 57 REDUCE 44 on (
-State 58 REDUCE 45 on (
-State 59 REDUCE 36 on (
-State 60 REDUCE 37 on (
-State 61 REDUCE 2 on BEGIN
-State 62 SHIFT 7 on BEGIN
-State 62 GOTO 77 on ALGO
-State 63 SHIFT 9 on V
-State 63 GOTO 78 on VNAME
-State 64 SHIFT 9 on V
-State 64 GOTO 79 on VNAME
-State 65 REDUCE 8 on END
-State 66 REDUCE 20 on ;
-State 67 REDUCE 21 on ;
-State 68 REDUCE 24 on ;
-State 69 REDUCE 25 on ;
-State 70 REDUCE 26 on ;
-State 71 SHIFT 80 on (
-State 72 SHIFT 81 on (
-State 73 SHIFT 82 on ,
-State 74 SHIFT 7 on BEGIN
-State 74 GOTO 83 on ALGO
-State 75 SHIFT 9 on V
-State 75 SHIFT 40 on N
-State 75 SHIFT 41 on T
-State 75 SHIFT 51 on OR
-State 75 SHIFT 52 on AND
-State 75 SHIFT 53 on EQ
-State 75 SHIFT 54 on GRT
-State 75 SHIFT 55 on ADD
-State 75 SHIFT 56 on SUB
-State 75 SHIFT 57 on MUL
-State 75 SHIFT 58 on DIV
-State 75 GOTO 38 on VNAME
-State 75 GOTO 84 on ATOMIC
-State 75 GOTO 39 on CONST
-State 75 GOTO 85 on SIMPLE
-State 75 GOTO 86 on BINOP
-State 76 SHIFT 51 on OR
-State 76 SHIFT 52 on AND
-State 76 SHIFT 53 on EQ
-State 76 SHIFT 54 on GRT
-State 76 SHIFT 55 on ADD
-State 76 SHIFT 56 on SUB
-State 76 SHIFT 57 on MUL
-State 76 SHIFT 58 on DIV
-State 76 GOTO 87 on SIMPLE
-State 76 GOTO 86 on BINOP
-State 77 SHIFT 89 on }
-State 77 GOTO 88 on EPILOG
-State 78 SHIFT 90 on ,
-State 79 SHIFT 91 on ,
-State 80 SHIFT 9 on V
-State 80 SHIFT 40 on N
-State 80 SHIFT 41 on T
-State 80 SHIFT 59 on NOT
-State 80 SHIFT 60 on SQRT
-State 80 SHIFT 51 on OR
-State 80 SHIFT 52 on AND
-State 80 SHIFT 53 on EQ
-State 80 SHIFT 54 on GRT
-State 80 SHIFT 55 on ADD
-State 80 SHIFT 56 on SUB
-State 80 SHIFT 57 on MUL
-State 80 SHIFT 58 on DIV
-State 80 GOTO 38 on VNAME
-State 80 GOTO 93 on ATOMIC
-State 80 GOTO 39 on CONST
-State 80 GOTO 94 on OP
-State 80 GOTO 92 on ARG
-State 80 GOTO 71 on UNOP
-State 80 GOTO 72 on BINOP
-State 81 SHIFT 9 on V
-State 81 SHIFT 40 on N
-State 81 SHIFT 41 on T
-State 81 SHIFT 59 on NOT
-State 81 SHIFT 60 on SQRT
-State 81 SHIFT 51 on OR
-State 81 SHIFT 52 on AND
-State 81 SHIFT 53 on EQ
-State 81 SHIFT 54 on GRT
-State 81 SHIFT 55 on ADD
-State 81 SHIFT 56 on SUB
-State 81 SHIFT 57 on MUL
-State 81 SHIFT 58 on DIV
-State 81 GOTO 38 on VNAME
-State 81 GOTO 93 on ATOMIC
-State 81 GOTO 39 on CONST
-State 81 GOTO 94 on OP
-State 81 GOTO 95 on ARG
-State 81 GOTO 71 on UNOP
-State 81 GOTO 72 on BINOP
-State 82 SHIFT 9 on V
-State 82 SHIFT 40 on N
-State 82 SHIFT 41 on T
-State 82 GOTO 38 on VNAME
-State 82 GOTO 96 on ATOMIC
-State 82 GOTO 39 on CONST
-State 83 SHIFT 97 on ELSE
-State 84 SHIFT 98 on ,
-State 85 SHIFT 99 on ,
-State 86 SHIFT 100 on (
-State 87 SHIFT 101 on )
-State 88 SHIFT 14 on NUM
-State 88 REDUCE 47 on END
-State 88 SHIFT 15 on VOID
-State 88 REDUCE 47 on $
-State 88 GOTO 103 on FUNCTIONS
-State 88 GOTO 11 on DECL
-State 88 GOTO 12 on HEADER
-State 88 GOTO 13 on FTYP
-State 88 GOTO 102 on SUBFUNCS
-State 89 REDUCE 55 on NUM
-State 89 REDUCE 55 on END
-State 89 REDUCE 55 on VOID
-State 89 REDUCE 55 on $
-State 90 SHIFT 4 on NUM
-State 90 SHIFT 5 on TEXT
-State 90 GOTO 104 on VTYP
-State 91 SHIFT 9 on V
-State 91 GOTO 105 on VNAME
-State 92 SHIFT 106 on )
-State 93 REDUCE 29 on ,
-State 93 REDUCE 29 on )
-State 94 REDUCE 30 on ,
-State 94 REDUCE 30 on )
-State 95 SHIFT 107 on ,
-State 96 SHIFT 108 on ,
-State 97 SHIFT 7 on BEGIN
-State 97 GOTO 109 on ALGO
-State 98 SHIFT 9 on V
-State 98 SHIFT 40 on N
-State 98 SHIFT 41 on T
-State 98 GOTO 38 on VNAME
-State 98 GOTO 110 on ATOMIC
-State 98 GOTO 39 on CONST
-State 99 SHIFT 51 on OR
-State 99 SHIFT 52 on AND
-State 99 SHIFT 53 on EQ
-State 99 SHIFT 54 on GRT
-State 99 SHIFT 55 on ADD
-State 99 SHIFT 56 on SUB
-State 99 SHIFT 57 on MUL
-State 99 SHIFT 58 on DIV
-State 99 GOTO 111 on SIMPLE
-State 99 GOTO 86 on BINOP
-State 100 SHIFT 9 on V
-State 100 SHIFT 40 on N
-State 100 SHIFT 41 on T
-State 100 GOTO 38 on VNAME
-State 100 GOTO 84 on ATOMIC
-State 100 GOTO 39 on CONST
-State 101 REDUCE 35 on THEN
-State 102 SHIFT 112 on END
-State 103 REDUCE 57 on END
-State 104 SHIFT 9 on V
-State 104 GOTO 113 on VNAME
-State 105 SHIFT 114 on ,
-State 106 REDUCE 27 on ,
-State 106 REDUCE 27 on ;
-State 106 REDUCE 27 on )
-State 107 SHIFT 9 on V
-State 107 SHIFT 40 on N
-State 107 SHIFT 41 on T
-State 107 SHIFT 59 on NOT
-State 107 SHIFT 60 on SQRT
-State 107 SHIFT 51 on OR
-State 107 SHIFT 52 on AND
-State 107 SHIFT 53 on EQ
-State 107 SHIFT 54 on GRT
-State 107 SHIFT 55 on ADD
-State 107 SHIFT 56 on SUB
-State 107 SHIFT 57 on MUL
-State 107 SHIFT 58 on DIV
-State 107 GOTO 38 on VNAME
-State 107 GOTO 93 on ATOMIC
-State 107 GOTO 39 on CONST
-State 107 GOTO 94 on OP
-State 107 GOTO 115 on ARG
-State 107 GOTO 71 on UNOP
-State 107 GOTO 72 on BINOP
-State 108 SHIFT 9 on V
-State 108 SHIFT 40 on N
-State 108 SHIFT 41 on T
-State 108 GOTO 38 on VNAME
-State 108 GOTO 116 on ATOMIC
-State 108 GOTO 39 on CONST
-State 109 REDUCE 23 on ;
-State 110 SHIFT 117 on )
-State 111 SHIFT 118 on )
-State 112 REDUCE 53 on NUM
-State 112 REDUCE 53 on END
-State 112 REDUCE 53 on VOID
-State 112 REDUCE 53 on $
-State 113 SHIFT 119 on ,
-State 114 SHIFT 9 on V
-State 114 GOTO 120 on VNAME
-State 115 SHIFT 121 on )
-State 116 SHIFT 122 on )
-State 117 REDUCE 33 on ,
-State 117 REDUCE 33 on )
-State 117 REDUCE 33 on THEN
-State 118 REDUCE 34 on THEN
-State 119 SHIFT 4 on NUM
-State 119 SHIFT 5 on TEXT
-State 119 GOTO 123 on VTYP
-State 120 SHIFT 124 on )
-State 121 REDUCE 28 on ,
-State 121 REDUCE 28 on ;
-State 121 REDUCE 28 on )
-State 122 REDUCE 22 on ;
-State 123 SHIFT 9 on V
-State 123 GOTO 125 on VNAME
-State 124 REDUCE 50 on {
-State 125 SHIFT 126 on ,
-State 126 REDUCE 56 on BEGIN
+s0.addTransition("MAIN", new ShiftAction(s2));
+s0.addTransition("PROG", new GotoAction(s1));
+s1.addTransition("$", new AcceptAction());
+s2.addTransition("NUM", new ShiftAction(s5));
+s2.addTransition("TEXT", new ShiftAction(s6));
+s2.addTransition("BEGIN", new ReduceAction(p2));
+s2.addTransition("GLOBVARS", new GotoAction(s3));
+s2.addTransition("VTYP", new GotoAction(s4));
+s3.addTransition("BEGIN", new ShiftAction(s8));
+s3.addTransition("ALGO", new GotoAction(s7));
+s4.addTransition("V", new ShiftAction(s10));
+s4.addTransition("VNAME", new GotoAction(s9));
+s5.addTransition("V", new ReduceAction(p4));
+s6.addTransition("V", new ReduceAction(p5));
+s7.addTransition("NUM", new ShiftAction(s15));
+s7.addTransition("END", new ReduceAction(p48));
+s7.addTransition("VOID", new ShiftAction(s16));
+s7.addTransition("$", new ReduceAction(p48));
+s7.addTransition("FUNCTIONS", new GotoAction(s11));
+s7.addTransition("DECL", new GotoAction(s12));
+s7.addTransition("HEADER", new GotoAction(s13));
+s7.addTransition("FTYP", new GotoAction(s14));
+s8.addTransition("V", new ShiftAction(s10));
+s8.addTransition("END", new ReduceAction(p8));
+s8.addTransition("SKIP", new ShiftAction(s19));
+s8.addTransition("HALT", new ShiftAction(s20));
+s8.addTransition("PRINT", new ShiftAction(s21));
+s8.addTransition("RETURN", new ShiftAction(s25));
+s8.addTransition("IF", new ShiftAction(s28));
+s8.addTransition("F", new ShiftAction(s29));
+s8.addTransition("VNAME", new GotoAction(s26));
+s8.addTransition("INSTRUC", new GotoAction(s17));
+s8.addTransition("COMMAND", new GotoAction(s18));
+s8.addTransition("ASSIGN", new GotoAction(s22));
+s8.addTransition("CALL", new GotoAction(s23));
+s8.addTransition("BRANCH", new GotoAction(s24));
+s8.addTransition("FNAME", new GotoAction(s27));
+s9.addTransition(",", new ShiftAction(s30));
+s10.addTransition(",", new ReduceAction(p6));
+s10.addTransition(";", new ReduceAction(p6));
+s10.addTransition("&LT;", new ReduceAction(p6));
+s10.addTransition("=", new ReduceAction(p6));
+s10.addTransition(")", new ReduceAction(p6));
+s11.addTransition("$", new ReduceAction(p1));
+s12.addTransition("NUM", new ShiftAction(s15));
+s12.addTransition("END", new ReduceAction(p48));
+s12.addTransition("VOID", new ShiftAction(s16));
+s12.addTransition("$", new ReduceAction(p48));
+s12.addTransition("FUNCTIONS", new GotoAction(s31));
+s12.addTransition("DECL", new GotoAction(s12));
+s12.addTransition("HEADER", new GotoAction(s13));
+s12.addTransition("FTYP", new GotoAction(s14));
+s13.addTransition("{", new ShiftAction(s34));
+s13.addTransition("BODY", new GotoAction(s32));
+s13.addTransition("PROLOG", new GotoAction(s33));
+s14.addTransition("F", new ShiftAction(s29));
+s14.addTransition("FNAME", new GotoAction(s35));
+s15.addTransition("F", new ReduceAction(p52));
+s16.addTransition("F", new ReduceAction(p53));
+s17.addTransition("END", new ShiftAction(s36));
+s18.addTransition(";", new ShiftAction(s37));
+s19.addTransition(";", new ReduceAction(p10));
+s20.addTransition(";", new ReduceAction(p11));
+s21.addTransition("V", new ShiftAction(s10));
+s21.addTransition("N", new ShiftAction(s41));
+s21.addTransition("T", new ShiftAction(s42));
+s21.addTransition("VNAME", new GotoAction(s39));
+s21.addTransition("ATOMIC", new GotoAction(s38));
+s21.addTransition("CONST", new GotoAction(s40));
+s22.addTransition(";", new ReduceAction(p13));
+s23.addTransition(";", new ReduceAction(p14));
+s24.addTransition(";", new ReduceAction(p15));
+s25.addTransition("V", new ShiftAction(s10));
+s25.addTransition("N", new ShiftAction(s41));
+s25.addTransition("T", new ShiftAction(s42));
+s25.addTransition("VNAME", new GotoAction(s39));
+s25.addTransition("ATOMIC", new GotoAction(s43));
+s25.addTransition("CONST", new GotoAction(s40));
+s26.addTransition("&LT;", new ShiftAction(s44));
+s26.addTransition("=", new ShiftAction(s45));
+s27.addTransition("(", new ShiftAction(s46));
+s28.addTransition("NOT", new ShiftAction(s60));
+s28.addTransition("SQRT", new ShiftAction(s61));
+s28.addTransition("OR", new ShiftAction(s52));
+s28.addTransition("AND", new ShiftAction(s53));
+s28.addTransition("EQ", new ShiftAction(s54));
+s28.addTransition("GRT", new ShiftAction(s55));
+s28.addTransition("ADD", new ShiftAction(s56));
+s28.addTransition("SUB", new ShiftAction(s57));
+s28.addTransition("MUL", new ShiftAction(s58));
+s28.addTransition("DIV", new ShiftAction(s59));
+s28.addTransition("COND", new GotoAction(s47));
+s28.addTransition("SIMPLE", new GotoAction(s48));
+s28.addTransition("COMPOSIT", new GotoAction(s49));
+s28.addTransition("UNOP", new GotoAction(s51));
+s28.addTransition("BINOP", new GotoAction(s50));
+s29.addTransition("(", new ReduceAction(p47));
+s30.addTransition("NUM", new ShiftAction(s5));
+s30.addTransition("TEXT", new ShiftAction(s6));
+s30.addTransition("BEGIN", new ReduceAction(p2));
+s30.addTransition("GLOBVARS", new GotoAction(s62));
+s30.addTransition("VTYP", new GotoAction(s4));
+s31.addTransition("END", new ReduceAction(p49));
+s31.addTransition("$", new ReduceAction(p49));
+s32.addTransition("NUM", new ReduceAction(p50));
+s32.addTransition("END", new ReduceAction(p50));
+s32.addTransition("VOID", new ReduceAction(p50));
+s32.addTransition("$", new ReduceAction(p50));
+s33.addTransition("NUM", new ShiftAction(s5));
+s33.addTransition("TEXT", new ShiftAction(s6));
+s33.addTransition("VTYP", new GotoAction(s64));
+s33.addTransition("LOCVARS", new GotoAction(s63));
+s34.addTransition("NUM", new ReduceAction(p55));
+s34.addTransition("TEXT", new ReduceAction(p55));
+s35.addTransition("(", new ShiftAction(s65));
+s36.addTransition("NUM", new ReduceAction(p7));
+s36.addTransition(";", new ReduceAction(p7));
+s36.addTransition("ELSE", new ReduceAction(p7));
+s36.addTransition("VOID", new ReduceAction(p7));
+s36.addTransition("}", new ReduceAction(p7));
+s36.addTransition("$", new ReduceAction(p7));
+s37.addTransition("V", new ShiftAction(s10));
+s37.addTransition("END", new ReduceAction(p8));
+s37.addTransition("SKIP", new ShiftAction(s19));
+s37.addTransition("HALT", new ShiftAction(s20));
+s37.addTransition("PRINT", new ShiftAction(s21));
+s37.addTransition("RETURN", new ShiftAction(s25));
+s37.addTransition("IF", new ShiftAction(s28));
+s37.addTransition("F", new ShiftAction(s29));
+s37.addTransition("VNAME", new GotoAction(s26));
+s37.addTransition("INSTRUC", new GotoAction(s66));
+s37.addTransition("COMMAND", new GotoAction(s18));
+s37.addTransition("ASSIGN", new GotoAction(s22));
+s37.addTransition("CALL", new GotoAction(s23));
+s37.addTransition("BRANCH", new GotoAction(s24));
+s37.addTransition("FNAME", new GotoAction(s27));
+s38.addTransition(";", new ReduceAction(p12));
+s39.addTransition(",", new ReduceAction(p17));
+s39.addTransition(";", new ReduceAction(p17));
+s39.addTransition(")", new ReduceAction(p17));
+s40.addTransition(",", new ReduceAction(p18));
+s40.addTransition(";", new ReduceAction(p18));
+s40.addTransition(")", new ReduceAction(p18));
+s41.addTransition(",", new ReduceAction(p19));
+s41.addTransition(";", new ReduceAction(p19));
+s41.addTransition(")", new ReduceAction(p19));
+s42.addTransition(",", new ReduceAction(p20));
+s42.addTransition(";", new ReduceAction(p20));
+s42.addTransition(")", new ReduceAction(p20));
+s43.addTransition(";", new ReduceAction(p16));
+s44.addTransition("INPUT", new ShiftAction(s67));
+s45.addTransition("V", new ShiftAction(s10));
+s45.addTransition("N", new ShiftAction(s41));
+s45.addTransition("T", new ShiftAction(s42));
+s45.addTransition("NOT", new ShiftAction(s60));
+s45.addTransition("SQRT", new ShiftAction(s61));
+s45.addTransition("OR", new ShiftAction(s52));
+s45.addTransition("AND", new ShiftAction(s53));
+s45.addTransition("EQ", new ShiftAction(s54));
+s45.addTransition("GRT", new ShiftAction(s55));
+s45.addTransition("ADD", new ShiftAction(s56));
+s45.addTransition("SUB", new ShiftAction(s57));
+s45.addTransition("MUL", new ShiftAction(s58));
+s45.addTransition("DIV", new ShiftAction(s59));
+s45.addTransition("F", new ShiftAction(s29));
+s45.addTransition("VNAME", new GotoAction(s39));
+s45.addTransition("ATOMIC", new GotoAction(s69));
+s45.addTransition("CONST", new GotoAction(s40));
+s45.addTransition("CALL", new GotoAction(s70));
+s45.addTransition("TERM", new GotoAction(s68));
+s45.addTransition("OP", new GotoAction(s71));
+s45.addTransition("UNOP", new GotoAction(s72));
+s45.addTransition("BINOP", new GotoAction(s73));
+s45.addTransition("FNAME", new GotoAction(s27));
+s46.addTransition("V", new ShiftAction(s10));
+s46.addTransition("N", new ShiftAction(s41));
+s46.addTransition("T", new ShiftAction(s42));
+s46.addTransition("VNAME", new GotoAction(s39));
+s46.addTransition("ATOMIC", new GotoAction(s74));
+s46.addTransition("CONST", new GotoAction(s40));
+s47.addTransition("THEN", new ShiftAction(s75));
+s48.addTransition("THEN", new ReduceAction(p32));
+s49.addTransition("THEN", new ReduceAction(p33));
+s50.addTransition("(", new ShiftAction(s76));
+s51.addTransition("(", new ShiftAction(s77));
+s52.addTransition("(", new ReduceAction(p39));
+s53.addTransition("(", new ReduceAction(p40));
+s54.addTransition("(", new ReduceAction(p41));
+s55.addTransition("(", new ReduceAction(p42));
+s56.addTransition("(", new ReduceAction(p43));
+s57.addTransition("(", new ReduceAction(p44));
+s58.addTransition("(", new ReduceAction(p45));
+s59.addTransition("(", new ReduceAction(p46));
+s60.addTransition("(", new ReduceAction(p37));
+s61.addTransition("(", new ReduceAction(p38));
+s62.addTransition("BEGIN", new ReduceAction(p3));
+s63.addTransition("BEGIN", new ShiftAction(s8));
+s63.addTransition("ALGO", new GotoAction(s78));
+s64.addTransition("V", new ShiftAction(s10));
+s64.addTransition("VNAME", new GotoAction(s79));
+s65.addTransition("V", new ShiftAction(s10));
+s65.addTransition("VNAME", new GotoAction(s80));
+s66.addTransition("END", new ReduceAction(p9));
+s67.addTransition(";", new ReduceAction(p21));
+s68.addTransition(";", new ReduceAction(p22));
+s69.addTransition(";", new ReduceAction(p25));
+s70.addTransition(";", new ReduceAction(p26));
+s71.addTransition(";", new ReduceAction(p27));
+s72.addTransition("(", new ShiftAction(s81));
+s73.addTransition("(", new ShiftAction(s82));
+s74.addTransition(",", new ShiftAction(s83));
+s75.addTransition("BEGIN", new ShiftAction(s8));
+s75.addTransition("ALGO", new GotoAction(s84));
+s76.addTransition("V", new ShiftAction(s10));
+s76.addTransition("N", new ShiftAction(s41));
+s76.addTransition("T", new ShiftAction(s42));
+s76.addTransition("OR", new ShiftAction(s52));
+s76.addTransition("AND", new ShiftAction(s53));
+s76.addTransition("EQ", new ShiftAction(s54));
+s76.addTransition("GRT", new ShiftAction(s55));
+s76.addTransition("ADD", new ShiftAction(s56));
+s76.addTransition("SUB", new ShiftAction(s57));
+s76.addTransition("MUL", new ShiftAction(s58));
+s76.addTransition("DIV", new ShiftAction(s59));
+s76.addTransition("VNAME", new GotoAction(s39));
+s76.addTransition("ATOMIC", new GotoAction(s85));
+s76.addTransition("CONST", new GotoAction(s40));
+s76.addTransition("SIMPLE", new GotoAction(s86));
+s76.addTransition("BINOP", new GotoAction(s87));
+s77.addTransition("OR", new ShiftAction(s52));
+s77.addTransition("AND", new ShiftAction(s53));
+s77.addTransition("EQ", new ShiftAction(s54));
+s77.addTransition("GRT", new ShiftAction(s55));
+s77.addTransition("ADD", new ShiftAction(s56));
+s77.addTransition("SUB", new ShiftAction(s57));
+s77.addTransition("MUL", new ShiftAction(s58));
+s77.addTransition("DIV", new ShiftAction(s59));
+s77.addTransition("SIMPLE", new GotoAction(s88));
+s77.addTransition("BINOP", new GotoAction(s87));
+s78.addTransition("}", new ShiftAction(s90));
+s78.addTransition("EPILOG", new GotoAction(s89));
+s79.addTransition(",", new ShiftAction(s91));
+s80.addTransition(",", new ShiftAction(s92));
+s81.addTransition("V", new ShiftAction(s10));
+s81.addTransition("N", new ShiftAction(s41));
+s81.addTransition("T", new ShiftAction(s42));
+s81.addTransition("NOT", new ShiftAction(s60));
+s81.addTransition("SQRT", new ShiftAction(s61));
+s81.addTransition("OR", new ShiftAction(s52));
+s81.addTransition("AND", new ShiftAction(s53));
+s81.addTransition("EQ", new ShiftAction(s54));
+s81.addTransition("GRT", new ShiftAction(s55));
+s81.addTransition("ADD", new ShiftAction(s56));
+s81.addTransition("SUB", new ShiftAction(s57));
+s81.addTransition("MUL", new ShiftAction(s58));
+s81.addTransition("DIV", new ShiftAction(s59));
+s81.addTransition("VNAME", new GotoAction(s39));
+s81.addTransition("ATOMIC", new GotoAction(s94));
+s81.addTransition("CONST", new GotoAction(s40));
+s81.addTransition("OP", new GotoAction(s95));
+s81.addTransition("ARG", new GotoAction(s93));
+s81.addTransition("UNOP", new GotoAction(s72));
+s81.addTransition("BINOP", new GotoAction(s73));
+s82.addTransition("V", new ShiftAction(s10));
+s82.addTransition("N", new ShiftAction(s41));
+s82.addTransition("T", new ShiftAction(s42));
+s82.addTransition("NOT", new ShiftAction(s60));
+s82.addTransition("SQRT", new ShiftAction(s61));
+s82.addTransition("OR", new ShiftAction(s52));
+s82.addTransition("AND", new ShiftAction(s53));
+s82.addTransition("EQ", new ShiftAction(s54));
+s82.addTransition("GRT", new ShiftAction(s55));
+s82.addTransition("ADD", new ShiftAction(s56));
+s82.addTransition("SUB", new ShiftAction(s57));
+s82.addTransition("MUL", new ShiftAction(s58));
+s82.addTransition("DIV", new ShiftAction(s59));
+s82.addTransition("VNAME", new GotoAction(s39));
+s82.addTransition("ATOMIC", new GotoAction(s94));
+s82.addTransition("CONST", new GotoAction(s40));
+s82.addTransition("OP", new GotoAction(s95));
+s82.addTransition("ARG", new GotoAction(s96));
+s82.addTransition("UNOP", new GotoAction(s72));
+s82.addTransition("BINOP", new GotoAction(s73));
+s83.addTransition("V", new ShiftAction(s10));
+s83.addTransition("N", new ShiftAction(s41));
+s83.addTransition("T", new ShiftAction(s42));
+s83.addTransition("VNAME", new GotoAction(s39));
+s83.addTransition("ATOMIC", new GotoAction(s97));
+s83.addTransition("CONST", new GotoAction(s40));
+s84.addTransition("ELSE", new ShiftAction(s98));
+s85.addTransition(",", new ShiftAction(s99));
+s86.addTransition(",", new ShiftAction(s100));
+s87.addTransition("(", new ShiftAction(s101));
+s88.addTransition(")", new ShiftAction(s102));
+s89.addTransition("NUM", new ShiftAction(s15));
+s89.addTransition("END", new ReduceAction(p48));
+s89.addTransition("VOID", new ShiftAction(s16));
+s89.addTransition("$", new ReduceAction(p48));
+s89.addTransition("FUNCTIONS", new GotoAction(s104));
+s89.addTransition("DECL", new GotoAction(s12));
+s89.addTransition("HEADER", new GotoAction(s13));
+s89.addTransition("FTYP", new GotoAction(s14));
+s89.addTransition("SUBFUNCS", new GotoAction(s103));
+s90.addTransition("NUM", new ReduceAction(p56));
+s90.addTransition("END", new ReduceAction(p56));
+s90.addTransition("VOID", new ReduceAction(p56));
+s90.addTransition("$", new ReduceAction(p56));
+s91.addTransition("NUM", new ShiftAction(s5));
+s91.addTransition("TEXT", new ShiftAction(s6));
+s91.addTransition("VTYP", new GotoAction(s105));
+s92.addTransition("V", new ShiftAction(s10));
+s92.addTransition("VNAME", new GotoAction(s106));
+s93.addTransition(")", new ShiftAction(s107));
+s94.addTransition(",", new ReduceAction(p30));
+s94.addTransition(")", new ReduceAction(p30));
+s95.addTransition(",", new ReduceAction(p31));
+s95.addTransition(")", new ReduceAction(p31));
+s96.addTransition(",", new ShiftAction(s108));
+s97.addTransition(",", new ShiftAction(s109));
+s98.addTransition("BEGIN", new ShiftAction(s8));
+s98.addTransition("ALGO", new GotoAction(s110));
+s99.addTransition("V", new ShiftAction(s10));
+s99.addTransition("N", new ShiftAction(s41));
+s99.addTransition("T", new ShiftAction(s42));
+s99.addTransition("VNAME", new GotoAction(s39));
+s99.addTransition("ATOMIC", new GotoAction(s111));
+s99.addTransition("CONST", new GotoAction(s40));
+s100.addTransition("OR", new ShiftAction(s52));
+s100.addTransition("AND", new ShiftAction(s53));
+s100.addTransition("EQ", new ShiftAction(s54));
+s100.addTransition("GRT", new ShiftAction(s55));
+s100.addTransition("ADD", new ShiftAction(s56));
+s100.addTransition("SUB", new ShiftAction(s57));
+s100.addTransition("MUL", new ShiftAction(s58));
+s100.addTransition("DIV", new ShiftAction(s59));
+s100.addTransition("SIMPLE", new GotoAction(s112));
+s100.addTransition("BINOP", new GotoAction(s87));
+s101.addTransition("V", new ShiftAction(s10));
+s101.addTransition("N", new ShiftAction(s41));
+s101.addTransition("T", new ShiftAction(s42));
+s101.addTransition("VNAME", new GotoAction(s39));
+s101.addTransition("ATOMIC", new GotoAction(s85));
+s101.addTransition("CONST", new GotoAction(s40));
+s102.addTransition("THEN", new ReduceAction(p36));
+s103.addTransition("END", new ShiftAction(s113));
+s104.addTransition("END", new ReduceAction(p58));
+s105.addTransition("V", new ShiftAction(s10));
+s105.addTransition("VNAME", new GotoAction(s114));
+s106.addTransition(",", new ShiftAction(s115));
+s107.addTransition(",", new ReduceAction(p28));
+s107.addTransition(";", new ReduceAction(p28));
+s107.addTransition(")", new ReduceAction(p28));
+s108.addTransition("V", new ShiftAction(s10));
+s108.addTransition("N", new ShiftAction(s41));
+s108.addTransition("T", new ShiftAction(s42));
+s108.addTransition("NOT", new ShiftAction(s60));
+s108.addTransition("SQRT", new ShiftAction(s61));
+s108.addTransition("OR", new ShiftAction(s52));
+s108.addTransition("AND", new ShiftAction(s53));
+s108.addTransition("EQ", new ShiftAction(s54));
+s108.addTransition("GRT", new ShiftAction(s55));
+s108.addTransition("ADD", new ShiftAction(s56));
+s108.addTransition("SUB", new ShiftAction(s57));
+s108.addTransition("MUL", new ShiftAction(s58));
+s108.addTransition("DIV", new ShiftAction(s59));
+s108.addTransition("VNAME", new GotoAction(s39));
+s108.addTransition("ATOMIC", new GotoAction(s94));
+s108.addTransition("CONST", new GotoAction(s40));
+s108.addTransition("OP", new GotoAction(s95));
+s108.addTransition("ARG", new GotoAction(s116));
+s108.addTransition("UNOP", new GotoAction(s72));
+s108.addTransition("BINOP", new GotoAction(s73));
+s109.addTransition("V", new ShiftAction(s10));
+s109.addTransition("N", new ShiftAction(s41));
+s109.addTransition("T", new ShiftAction(s42));
+s109.addTransition("VNAME", new GotoAction(s39));
+s109.addTransition("ATOMIC", new GotoAction(s117));
+s109.addTransition("CONST", new GotoAction(s40));
+s110.addTransition(";", new ReduceAction(p24));
+s111.addTransition(")", new ShiftAction(s118));
+s112.addTransition(")", new ShiftAction(s119));
+s113.addTransition("NUM", new ReduceAction(p54));
+s113.addTransition("END", new ReduceAction(p54));
+s113.addTransition("VOID", new ReduceAction(p54));
+s113.addTransition("$", new ReduceAction(p54));
+s114.addTransition(",", new ShiftAction(s120));
+s115.addTransition("V", new ShiftAction(s10));
+s115.addTransition("VNAME", new GotoAction(s121));
+s116.addTransition(")", new ShiftAction(s122));
+s117.addTransition(")", new ShiftAction(s123));
+s118.addTransition(",", new ReduceAction(p34));
+s118.addTransition(")", new ReduceAction(p34));
+s118.addTransition("THEN", new ReduceAction(p34));
+s119.addTransition("THEN", new ReduceAction(p35));
+s120.addTransition("NUM", new ShiftAction(s5));
+s120.addTransition("TEXT", new ShiftAction(s6));
+s120.addTransition("VTYP", new GotoAction(s124));
+s121.addTransition(")", new ShiftAction(s125));
+s122.addTransition(",", new ReduceAction(p29));
+s122.addTransition(";", new ReduceAction(p29));
+s122.addTransition(")", new ReduceAction(p29));
+s123.addTransition(";", new ReduceAction(p23));
+s124.addTransition("V", new ShiftAction(s10));
+s124.addTransition("VNAME", new GotoAction(s126));
+s125.addTransition("{", new ReduceAction(p51));
+s126.addTransition(",", new ShiftAction(s127));
+s127.addTransition("BEGIN", new ReduceAction(p57));
