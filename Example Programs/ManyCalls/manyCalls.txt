@@ -1,0 +1,59 @@
+main
+
+begin
+    F_one(0, 0, 0);
+    F_two(0, 0, 0);
+end
+
+void F_one(V_one, V_two, V_three){
+    num V_dummy1,
+    num V_dummy2,
+    num V_dummy3,
+    begin
+        F_one2(0, 0, 0);
+    end
+} 
+
+    void F_one2(V_one, V_two, V_three){
+        num V_dummy1,
+        num V_dummy2,
+        num V_dummy3,
+        begin
+            F_one(0, 0, 0);
+        end
+    } 
+
+        void F_one(V_one, V_two, V_three){
+            num V_dummy1,
+            num V_dummy2,
+            num V_dummy3,
+            begin
+                skip;
+            end
+        } 
+        end
+
+    end
+
+end
+
+void F_two(V_one, V_two, V_three){
+    num V_dummy1,
+    num V_dummy2,
+    num V_dummy3,
+    begin
+        F_one(0, 0, 0);
+    end
+} 
+
+    void F_one(V_one, V_two, V_three){
+        num V_dummy1,
+        num V_dummy2,
+        num V_dummy3,
+        begin
+            skip;
+        end
+    } 
+    end
+
+end

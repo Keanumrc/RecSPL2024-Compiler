@@ -6,14 +6,18 @@ import java.util.List;
 
 import lexer.RecSPLLexer;
 import lexer.Token;
+import scopeAnalyser.ScopeAnalyser;
 import syntaxTree.SyntaxTreeNode;
 
 class Main {
 
     public static void main(String[] args) throws Exception {
 
+        String filePath = "Example Programs/ManyCalls/";
+        String fileName = "manyCalls.txt";
+
         // Read the text file into a string
-        BufferedReader reader = new BufferedReader(new FileReader("Example Programs/Program 1/recSplProgram.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader(filePath + fileName));
         StringBuilder stringBuilder = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
@@ -29,9 +33,12 @@ class Main {
         SyntaxTreeNode tree = RecSPLParser.parse(tokenStream);
 
         // Output the syntax tree into an XML file
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("Example Programs/Program 1/tree.xml"));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath + "tree.xml"));
         bufferedWriter.write(tree.toString());
         bufferedWriter.close();
+
+        //Pass the tree to the ScopeAnalyser
+        ScopeAnalyser.analyseProg(tree);
 
     }
 

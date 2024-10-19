@@ -86,7 +86,7 @@ public class Parser {
         }
 
         if(nextAction == null){
-            throw new Exception("Syntax Error");
+            throw new Exception("Syntax Error: Was trying to get action for state " + stack.peek().getLabel() + " on " + token.getTokenClass());
         }
         else{
             return treeStack.peek();
