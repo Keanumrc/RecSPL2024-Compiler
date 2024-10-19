@@ -1,4 +1,7 @@
+import java.util.List;
 import java.util.Stack;
+
+import lexer.Token;
 import syntaxTree.SyntaxTreeNode;
 
 public class Parser {
@@ -13,7 +16,10 @@ public class Parser {
         treeStack = new Stack<SyntaxTreeNode>();
     }
 
-    public void parse(String[] tokens){
+    public SyntaxTreeNode parse(List<Token> tokens) throws Exception{
+
+        //append an end-of-file token to the end of the tokenstream
+        tokens.add(new Token("$", "$"));
 
         //push the start state onto the stack
         stack.push(this.startState);
@@ -22,20 +28,20 @@ public class Parser {
         int i = 0;
 
         //get the first token
-        String token = tokens[i];
+        Token token = tokens.get(i);
 
         //get the state on top of the stack
         State topState = stack.peek();
 
         //get the next action based on the top state
-        Action nextAction = topState.getNextAction(token);
+        Action nextAction = topState.getNextAction(token.getTokenClass());
 
         while(nextAction != null && nextAction.getActionType() != Action.ActionType.ACCEPT){
 
             //if the next action is a shift action, push the next state onto the stack and read an input token
             if(nextAction.getActionType() == Action.ActionType.SHIFT){
                 stack.push(((ShiftAction)nextAction).getNextState());
-                treeStack.push(new SyntaxTreeNode(token));
+                treeStack.push(new SyntaxTreeNode(token.getWord()));
                 i++;
             }
             //otherwise if the next action is a reduce action,
@@ -69,22 +75,21 @@ public class Parser {
             }
 
             // get the next token
-            token = tokens[i];
+            token = tokens.get(i);
 
             // get the state on top of the stack
             topState = stack.peek();
 
             // get the next action based on the top state
-            nextAction = topState.getNextAction(token);
+            nextAction = topState.getNextAction(token.getTokenClass());
 
         }
 
         if(nextAction == null){
-            System.out.println("SYNTAX ERROR");
+            throw new Exception("Syntax Error");
         }
         else{
-            System.out.println("ACCEPTED BY GRAMMAR");
-            System.out.println(treeStack.peek());
+            return treeStack.peek();
         }
 
     }

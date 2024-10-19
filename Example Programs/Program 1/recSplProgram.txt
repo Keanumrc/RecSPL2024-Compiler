@@ -1,0 +1,21 @@
+main
+num V_a,
+num V_b,
+num V_result,
+
+begin
+    V_a = 10.1;
+    V_b = 9.9;
+    V_result = add(mul(V_a, V_b), div(9.982,-10.3));
+end
+
+num F_addthree(V_one, V_two, V_three){
+    num V_functionresult,
+    num V_intermediateresult,
+    num V_dummy2,
+    begin
+        V_intermediateresult = add(V_one, V_two);
+        V_functionresult = add(V_intermediateresult, V_three);
+        return V_functionresult;
+    end
+} end
