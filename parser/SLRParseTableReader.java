@@ -50,6 +50,7 @@ public class SLRParseTableReader {
                     "{\r\n" + //
                     "}\r\n" + //
                     "$\r\n" + //
+                    "PROG'\r\n" + //
                     "PROG\r\n" + //
                     "GLOBVARS\r\n" + //
                     "VTYP\r\n" + //
@@ -83,7 +84,7 @@ public class SLRParseTableReader {
 
             String[] headingArray = headings.split("\r\n");
 
-            while (lineNumber < 83) {
+            while (lineNumber < 84) {
                 // read next line
                 line = reader.readLine();
                 lineNumber++;
@@ -92,7 +93,7 @@ public class SLRParseTableReader {
             int rowNumber = -1;
             int columnNumber = 0;
 
-            while (lineNumber >= 83 && line != null) {
+            while (lineNumber >= 84 && line != null) {
 
                 if (line.contains("<tr>")) {
                     rowNumber++;
