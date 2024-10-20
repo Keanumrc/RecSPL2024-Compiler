@@ -1,4 +1,7 @@
 main
+num V_dummy1,
+num V_dummy2,
+num V_dummy4,
 
 begin
     F_one(0, 0, 0);
@@ -19,7 +22,7 @@ void F_one(V_one, V_two, V_three){
         num V_dummy2,
         num V_dummy3,
         begin
-            F_one(0, 0, 0);
+            F_one(0, 0, V_dummy4);
         end
     } 
 

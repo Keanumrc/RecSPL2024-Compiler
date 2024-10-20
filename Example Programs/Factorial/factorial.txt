@@ -2,8 +2,7 @@ main
 num V_a,
 
 begin
-    V_a = 5;
-    V_result = F_factorial(V_a, 0, 0);
+    V_a = F_factorial(5, 0, 0);
 end
 
 num F_factorial(V_one, V_two, V_three){

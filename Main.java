@@ -6,7 +6,8 @@ import java.util.List;
 
 import lexer.RecSPLLexer;
 import lexer.Token;
-import scopeAnalyser.ScopeAnalyser;
+import scopeAnalyser.FunctionScopeAnalyser;
+import scopeAnalyser.VariableScopeAnalyser;
 import syntaxTree.SyntaxTreeNode;
 
 class Main {
@@ -37,8 +38,11 @@ class Main {
         bufferedWriter.write(tree.toString());
         bufferedWriter.close();
 
-        //Pass the tree to the ScopeAnalyser
-        ScopeAnalyser.analyseProg(tree);
+        //Pass the tree to the FunctionScopeAnalyser
+        FunctionScopeAnalyser.analyseProg(tree);
+
+        //Pass the tree to the VariableScopeAnalyser
+        VariableScopeAnalyser.analyseProg(tree);
 
     }
 

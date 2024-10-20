@@ -5,7 +5,7 @@ import java.util.List;
 
 import syntaxTree.SyntaxTreeNode;
 
-public class ScopeAnalyser {
+public class FunctionScopeAnalyser {
 
     //PROG -> main GLOBVARS ALGO FUNCTIONS
     public static void analyseProg(SyntaxTreeNode syntaxTreeNode) throws Exception{
