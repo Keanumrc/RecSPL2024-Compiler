@@ -27,6 +27,14 @@ public class SyntaxTreeNode {
 
     }
 
+    public String getLabel(){
+        return this.label;
+    }
+
+    public List<SyntaxTreeNode> getChildren(){
+        return this.children;
+    }
+
     @Override
     public String toString(){
 
