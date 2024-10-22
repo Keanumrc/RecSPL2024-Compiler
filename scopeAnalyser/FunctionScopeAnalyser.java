@@ -26,7 +26,7 @@ public class FunctionScopeAnalyser {
 
     }
 
-    public static void analyseAlgo(SyntaxTreeNode syntaxTreeNode, List<String> functionTable) throws Exception{
+    private static void analyseAlgo(SyntaxTreeNode syntaxTreeNode, List<String> functionTable) throws Exception{
 
         //check if we are dealing with a function call
         //CALL -> FNAME(ATOMIC, ATOMIC, ATOMIC)
@@ -53,7 +53,7 @@ public class FunctionScopeAnalyser {
 
     //FUNCTIONS -> nullable
     //FUNCTIONS -> DECL FUNCTIONS
-    public static void analyseFunctions(SyntaxTreeNode syntaxTreeNode, List<String> functionTable) throws Exception{
+    private static void analyseFunctions(SyntaxTreeNode syntaxTreeNode, List<String> functionTable) throws Exception{
 
         //firstly, differentiate between the two productions
         //FUNCTIONS -> nullable
@@ -75,7 +75,7 @@ public class FunctionScopeAnalyser {
     }
 
     // DECL -> HEADER BODY
-    public static void analyseDecl(SyntaxTreeNode syntaxTreeNode, List<String> parentFunctionTable) throws Exception {
+    private static void analyseDecl(SyntaxTreeNode syntaxTreeNode, List<String> parentFunctionTable) throws Exception {
 
         // analyse the HEADER (child index 0) to get the function name
         String functionName = analyseHeader(syntaxTreeNode.getChildren().get(0));
@@ -107,7 +107,7 @@ public class FunctionScopeAnalyser {
     }
 
     //HEADER -> FTYPE FNAME(VNAME, VNAME, VNAME)
-    public static String analyseHeader(SyntaxTreeNode syntaxTreeNode){
+    private static String analyseHeader(SyntaxTreeNode syntaxTreeNode){
 
         //get the name of the function and return it
         SyntaxTreeNode fnameChild = syntaxTreeNode.getChildren().get(1);
@@ -116,7 +116,7 @@ public class FunctionScopeAnalyser {
     }
 
     //BODY -> PROLOG LOCVARS ALGO EPILOG SUBFUNCS end
-    public static void analyseBody(SyntaxTreeNode syntaxTreeNode, List<String> functionTable) throws Exception{
+    private static void analyseBody(SyntaxTreeNode syntaxTreeNode, List<String> functionTable) throws Exception{
 
         //firstly bind all the SUBFUNCS (child index 4) to the functionTable so function calls can be checked etc. later
         analyseSubfuncs(syntaxTreeNode.getChildren().get(4), functionTable);
@@ -127,7 +127,7 @@ public class FunctionScopeAnalyser {
     }
 
     //SUBFUNCS -> FUNCTIONS
-    public static void analyseSubfuncs(SyntaxTreeNode syntaxTreeNode, List<String> functionTable) throws Exception{
+    private static void analyseSubfuncs(SyntaxTreeNode syntaxTreeNode, List<String> functionTable) throws Exception{
 
         analyseFunctions(syntaxTreeNode.getChildren().get(0), functionTable);
 

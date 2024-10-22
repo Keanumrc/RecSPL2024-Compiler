@@ -24,7 +24,7 @@ public class VariableScopeAnalyser {
 
     }
 
-    public static void analyseAlgo(SyntaxTreeNode syntaxTreeNode, List<String> variableTable) throws Exception{
+    private static void analyseAlgo(SyntaxTreeNode syntaxTreeNode, List<String> variableTable) throws Exception{
 
         //check if we are dealing with a VNAME
         //VNAME -> V
@@ -55,7 +55,7 @@ public class VariableScopeAnalyser {
 
     //GLOBVARS -> nullable
     //GLOBVARS -> VTYP VNAME, GLOBVARS
-    public static void analyseGlobVars(SyntaxTreeNode syntaxTreeNode, List<String> variableTable) throws Exception{
+    private static void analyseGlobVars(SyntaxTreeNode syntaxTreeNode, List<String> variableTable) throws Exception{
 
         //firstly, differentiate between the two productions
         //GLOBVARS -> nullable
@@ -87,7 +87,7 @@ public class VariableScopeAnalyser {
 
     //FUNCTIONS -> nullable
     //FUNCTIONS -> DECL FUNCTIONS
-    public static void analyseFunctions(SyntaxTreeNode syntaxTreeNode, List<String> variableTable) throws Exception{
+    private static void analyseFunctions(SyntaxTreeNode syntaxTreeNode, List<String> variableTable) throws Exception{
 
         //firstly, differentiate between the two productions
         //FUNCTIONS -> nullable
@@ -109,7 +109,7 @@ public class VariableScopeAnalyser {
     }
 
     //DECL -> HEADER BODY
-    public static void analyseDecl(SyntaxTreeNode syntaxTreeNode, List<String> parentVariableTable) throws Exception{
+    private static void analyseDecl(SyntaxTreeNode syntaxTreeNode, List<String> parentVariableTable) throws Exception{
 
         //Since we are opening a new scope, create a new variable table, and copy all variable names over
         //from the parentVariableTable since these can be used in descendent scopes
@@ -130,7 +130,7 @@ public class VariableScopeAnalyser {
     }
 
     //HEADER -> FTYP FNAME(VNAME, VNAME, VNAME)
-    public static List<String> analyseHeader(SyntaxTreeNode syntaxTreeNode) throws Exception{
+    private static List<String> analyseHeader(SyntaxTreeNode syntaxTreeNode) throws Exception{
 
         List<String> parameterNames = new ArrayList<String>();
 
@@ -154,7 +154,7 @@ public class VariableScopeAnalyser {
     }
 
     //BODY -> PROLOG LOCVARS ALGO EPILOG SUBFUNCS end
-    public static void analyseBody(SyntaxTreeNode syntaxTreeNode, List<String> variableTable, List<String> localVariables) throws Exception{
+    private static void analyseBody(SyntaxTreeNode syntaxTreeNode, List<String> variableTable, List<String> localVariables) throws Exception{
 
         //first analyse LOCVARS (child index 1) to add all local variables to the localVariables list
         analyseLocVars(syntaxTreeNode.getChildren().get(1), localVariables);
@@ -182,7 +182,7 @@ public class VariableScopeAnalyser {
     }
 
     //LOCVARS -> VTYP VNAME, VTYP VNAME, VTYP VNAME
-    public static void analyseLocVars(SyntaxTreeNode syntaxTreeNode, List<String> localVariables) throws Exception{
+    private static void analyseLocVars(SyntaxTreeNode syntaxTreeNode, List<String> localVariables) throws Exception{
 
         //for each VNAME (child indices 1, 4, 7) add the variable name to the localVariables list
         for(int i = 1; i <= 7; i+=3){
@@ -202,7 +202,7 @@ public class VariableScopeAnalyser {
     }
 
     //SUBFUNCS -> FUNCTIONS
-    public static void analyseSubfuncs(SyntaxTreeNode syntaxTreeNode, List<String> parentVariableTable) throws Exception{
+    private static void analyseSubfuncs(SyntaxTreeNode syntaxTreeNode, List<String> parentVariableTable) throws Exception{
 
         //call analyse FUNCTIONS (child index 0)
         analyseFunctions(syntaxTreeNode.getChildren().get(0), parentVariableTable);

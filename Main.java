@@ -9,6 +9,7 @@ import lexer.Token;
 import scopeAnalyser.FunctionScopeAnalyser;
 import scopeAnalyser.VariableScopeAnalyser;
 import syntaxTree.SyntaxTreeNode;
+import typeChecker.TypeChecker;
 
 class Main {
 
@@ -43,6 +44,9 @@ class Main {
 
         //Pass the tree to the VariableScopeAnalyser
         VariableScopeAnalyser.analyseProg(tree);
+
+        //Pass the tree to the TypeChecker
+        TypeChecker.typeCheckProg(tree);
 
     }
 
