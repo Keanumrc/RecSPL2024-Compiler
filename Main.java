@@ -8,6 +8,7 @@ import lexer.RecSPLLexer;
 import lexer.Token;
 import scopeAnalyser.FunctionScopeAnalyser;
 import scopeAnalyser.VariableScopeAnalyser;
+import syntaxTree.CompositeNode;
 import syntaxTree.SyntaxTreeNode;
 import typeChecker.TypeChecker;
 
@@ -15,8 +16,8 @@ class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String filePath = "Example Programs/ManyCalls/";
-        String fileName = "manyCalls.txt";
+        String filePath = "Example Programs/Factorial/";
+        String fileName = "factorial.txt";
 
         // Read the text file into a string
         BufferedReader reader = new BufferedReader(new FileReader(filePath + fileName));
@@ -40,13 +41,13 @@ class Main {
         bufferedWriter.close();
 
         //Pass the tree to the FunctionScopeAnalyser
-        FunctionScopeAnalyser.analyseProg(tree);
+        FunctionScopeAnalyser.analyseProg((CompositeNode)tree);
 
         //Pass the tree to the VariableScopeAnalyser
-        VariableScopeAnalyser.analyseProg(tree);
+        VariableScopeAnalyser.analyseProg((CompositeNode)tree);
 
         //Pass the tree to the TypeChecker
-        TypeChecker.typeCheckProg(tree);
+        //TypeChecker.typeCheckProg(tree);
 
     }
 
