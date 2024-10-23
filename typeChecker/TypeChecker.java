@@ -215,8 +215,16 @@ public class TypeChecker {
     // CONST -> T
     private static char typeOfConst(CompositeNode syntaxTreeNode) {
 
-        // TODO
-        // incorporate token class into syntax tree nodes
+        LeafNode child = (LeafNode)syntaxTreeNode.getChildren().get(0); 
+
+        // CONST -> N
+        if(child.getTokenClass().equals("N")){
+            return 'n';
+        }
+        // CONST -> T
+        else{
+            return 't';
+        }
 
     }
 

@@ -20,6 +20,11 @@ public class LeafNode implements SyntaxTreeNode {
         return this.word;
     }
 
+    //used to override variables with unique names
+    public void setWord(String word){
+        this.word = word;
+    }
+
     @Override
     public String toString(){
 
