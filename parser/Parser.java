@@ -2,6 +2,8 @@ import java.util.List;
 import java.util.Stack;
 
 import lexer.Token;
+import syntaxTree.CompositeNode;
+import syntaxTree.LeafNode;
 import syntaxTree.SyntaxTreeNode;
 
 public class Parser {
@@ -41,7 +43,7 @@ public class Parser {
             //if the next action is a shift action, push the next state onto the stack and read an input token
             if(nextAction.getActionType() == Action.ActionType.SHIFT){
                 stack.push(((ShiftAction)nextAction).getNextState());
-                treeStack.push(new SyntaxTreeNode(token.getWord()));
+                treeStack.push(new LeafNode(token.getTokenClass(), token.getWord()));
                 i++;
             }
             //otherwise if the next action is a reduce action,
@@ -67,7 +69,7 @@ public class Parser {
                 GotoAction gotoAction = (GotoAction)newStackTop.getNextAction(lhs);
 
                 //push a new SyntaxTreeNode onto treeStack
-                treeStack.push(new SyntaxTreeNode(lhs, nodes));
+                treeStack.push(new CompositeNode(lhs, nodes));
 
                 //use the GotoAction to push a new state on top of the stack
                 stack.push(gotoAction.getNextState());

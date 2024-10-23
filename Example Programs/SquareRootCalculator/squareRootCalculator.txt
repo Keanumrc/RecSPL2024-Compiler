@@ -1,0 +1,17 @@
+main
+num V_input,
+num V_result,
+
+begin
+    print "Number";
+    V_input < input;
+    if and(grt(11, V_input), grt(V_input, -1)) then
+        begin
+            V_result = sqrt(V_input);
+            print V_result;
+        end
+    else
+        begin
+            print "Error";
+        end;
+end
