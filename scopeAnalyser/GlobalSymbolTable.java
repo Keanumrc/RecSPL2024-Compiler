@@ -20,10 +20,10 @@ public class GlobalSymbolTable {
         String newUniqueVariableName = "";
         
         if(variable){
-            newUniqueVariableName += "V_" + numberOfVariables;
+            newUniqueVariableName += "V" + numberOfVariables;
         }
         else{
-            newUniqueVariableName += "F_" + numberOfVariables;
+            newUniqueVariableName += "F" + numberOfVariables;
         }
 
         this.table.put(newUniqueVariableName, new Data(userDefinedName, '?'));
