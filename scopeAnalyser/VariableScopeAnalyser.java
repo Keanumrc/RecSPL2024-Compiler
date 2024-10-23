@@ -93,9 +93,14 @@ public class VariableScopeAnalyser {
             //get the variableName
             String variableName = ((LeafNode)((CompositeNode)syntaxTreeNode.getChildren().get(1)).getChildren().get(0)).getWord();
 
+            String uniqueName = globalVariableTable.bind(variableName);
+
+            //replace name in syntax tree
+            ((LeafNode)((CompositeNode)syntaxTreeNode.getChildren().get(1)).getChildren().get(0)).setWord(uniqueName);
+
             //bind the variableName
             if(variableTable.get(variableName) == null){
-                variableTable.put(variableName, globalVariableTable.bind(variableName));
+                variableTable.put(variableName, uniqueName);
             }
             else{
                 throw new Exception("Variable " + variableName + " has already been declared in this scope");                
@@ -148,7 +153,7 @@ public class VariableScopeAnalyser {
         //analyse the BODY (child index 1)
         //pass through localVariables so it can add to it
         //also pass through the variableTable so it can use ancestor variables
-        analyseBody((CompositeNode)syntaxTreeNode.getChildren().get(1), variableTable, localVariables, globalVariableTable);
+        analyseBody((CompositeNode)syntaxTreeNode, (CompositeNode)syntaxTreeNode.getChildren().get(1), variableTable, localVariables, globalVariableTable);
 
     }
 
@@ -177,16 +182,39 @@ public class VariableScopeAnalyser {
     }
 
     //BODY -> PROLOG LOCVARS ALGO EPILOG SUBFUNCS end
-    private static void analyseBody(CompositeNode syntaxTreeNode, Map<String, String> variableTable, List<String> localVariables, GlobalSymbolTable globalVariableTable) throws Exception{
+    private static void analyseBody(CompositeNode parentDeclNode, CompositeNode syntaxTreeNode, Map<String, String> variableTable, List<String> localVariables, GlobalSymbolTable globalVariableTable) throws Exception{
 
         //first analyse LOCVARS (child index 1) to add all local variables to the localVariables list
         analyseLocVars((CompositeNode)syntaxTreeNode.getChildren().get(1), localVariables, globalVariableTable);
 
         //now add all the local variables to the variableTable
         //variable hiding is automatically implemented by the put method
-        for(String localVariable : localVariables){
-            
-            variableTable.put(localVariable, globalVariableTable.bind(localVariable));
+        for(int i = 0; i < localVariables.size(); i++){
+
+            String localVariable = localVariables.get(i);
+
+            //replace variables with unique names in the syntax tree
+            String uniqueName = globalVariableTable.bind(localVariable);
+
+            //parameter names
+            if(i < 3){
+                CompositeNode headerNode = (CompositeNode)parentDeclNode.getChildren().get(0);
+                //0->3,1->5,2->7
+                CompositeNode vNameNode = (CompositeNode)headerNode.getChildren().get(2*i+3);
+                LeafNode vNode = (LeafNode)vNameNode.getChildren().get(0);
+                vNode.setWord(uniqueName);
+            }
+            //local vars
+            else{
+                CompositeNode locVarsNode = (CompositeNode)syntaxTreeNode.getChildren().get(1);
+                //3->1,4->4,5->7
+                CompositeNode vNameNode = (CompositeNode)locVarsNode.getChildren().get(3*(i-3)+1);
+                LeafNode vNode = (LeafNode)vNameNode.getChildren().get(0);
+                vNode.setWord(uniqueName);
+
+            }
+
+            variableTable.put(localVariable, uniqueName);
 
         }
 

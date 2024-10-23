@@ -1,23 +1,32 @@
 package typeChecker;
 
+import scopeAnalyser.GlobalSymbolTable;
 import syntaxTree.CompositeNode;
 import syntaxTree.LeafNode;
 import syntaxTree.SyntaxTreeNode;
 
 public class TypeChecker {
 
+    private GlobalSymbolTable globalVariableTable;
+    private GlobalSymbolTable globalFunctionTable;
+
+    public TypeChecker(GlobalSymbolTable globalVariableTable, GlobalSymbolTable globalFunctionTable) {
+        this.globalVariableTable = globalVariableTable;
+        this.globalFunctionTable = globalFunctionTable;
+    }
+
     // PROG -> main GLOBVARS ALGO FUNCTIONS
-    public static boolean typeCheckProg(CompositeNode syntaxTreeNode) {
+    public boolean typeCheckProg(CompositeNode syntaxTreeNode) throws Exception {
 
         // type check GLOBVARS (child index 1)
         // all results need to be true for this method to return true
         boolean result = typeCheckGlobVars((CompositeNode) syntaxTreeNode.getChildren().get(1));
 
-        // type check ALGO (child index 2)
-        result = result && typeCheckAlgo((CompositeNode) syntaxTreeNode.getChildren().get(2));
-
         // type check FUNCTIONS (child index 3)
         result = result && typeCheckFunctions((CompositeNode) syntaxTreeNode.getChildren().get(3));
+
+        // type check ALGO (child index 2)
+        result = result && typeCheckAlgo((CompositeNode) syntaxTreeNode.getChildren().get(2));
 
         return result;
 
@@ -25,7 +34,7 @@ public class TypeChecker {
 
     // GLOBVARS -> nullable
     // GLOBVARS -> VTYP VNAME, GLOBVARS
-    private static boolean typeCheckGlobVars(CompositeNode syntaxTreeNode) {
+    private boolean typeCheckGlobVars(CompositeNode syntaxTreeNode) {
 
         // firstly, differentiate between the two productions
         // GLOBVARS -> nullable
@@ -36,8 +45,11 @@ public class TypeChecker {
         // GLOBVARS -> VTYP VNAME, GLOBVARS
         else {
 
-            // TODO
-            // bind VNAME to VTYP in the symbol table
+            // bind VNAME (child index 1) to VTYP (child index 0) in the symbol table
+            char type = typeOfVtyp((CompositeNode) syntaxTreeNode.getChildren().get(0));
+            String uniqueVariableName = ((LeafNode) ((CompositeNode) syntaxTreeNode.getChildren().get(1)).getChildren()
+                    .get(0)).getWord();
+            globalVariableTable.setType(uniqueVariableName, type);
 
             // typecheck the rest of the GLOBVARS (child index 3)
             return typeCheckGlobVars((CompositeNode) syntaxTreeNode.getChildren().get(3));
@@ -48,7 +60,7 @@ public class TypeChecker {
 
     // VTYP -> num
     // VTYP -> text
-    private static char typeOfVtyp(CompositeNode syntaxTreeNode) {
+    private char typeOfVtyp(CompositeNode syntaxTreeNode) {
 
         String firstChildLabel = ((LeafNode) syntaxTreeNode.getChildren().get(0)).getWord();
 
@@ -66,15 +78,16 @@ public class TypeChecker {
     }
 
     // VNAME -> V
-    private static char typeOfVName(CompositeNode syntaxTreeNode) {
+    private char typeOfVName(CompositeNode syntaxTreeNode) {
 
-        // TODO
         // get type from symbol table
+        String uniqueVariableName = ((LeafNode) syntaxTreeNode.getChildren().get(0)).getWord();
+        return globalVariableTable.lookupType(uniqueVariableName);
 
     }
 
     // ALGO -> begin INSTRUC end
-    private static boolean typeCheckAlgo(CompositeNode syntaxTreeNode) {
+    private boolean typeCheckAlgo(CompositeNode syntaxTreeNode) throws Exception {
 
         // type check the INSTRUC (child index 1)
         return typeCheckInstruc((CompositeNode) syntaxTreeNode.getChildren().get(1));
@@ -83,7 +96,7 @@ public class TypeChecker {
 
     // INSTRUC -> nullable
     // INSTRUC -> COMMAND; INSTRUC
-    private static boolean typeCheckInstruc(CompositeNode syntaxTreeNode) {
+    private boolean typeCheckInstruc(CompositeNode syntaxTreeNode) throws Exception {
 
         // firstly, differentiate between the two productions
         // INSTRUC -> nullable
@@ -113,7 +126,7 @@ public class TypeChecker {
     // COMMAND -> ASSIGN
     // COMMAND -> CALL
     // COMMAND -> BRANCH
-    private static boolean typeCheckCommand(CompositeNode syntaxTreeNode) {
+    private boolean typeCheckCommand(CompositeNode syntaxTreeNode) throws Exception {
 
         SyntaxTreeNode firstChild = syntaxTreeNode.getChildren().get(0);
 
@@ -137,11 +150,15 @@ public class TypeChecker {
             else if (firstChildLabel.equals("CALL")) {
 
                 // check that this is a call to a void function
-                return (typeOfCall((CompositeNode) syntaxTreeNode.getChildren().get(0)) == 'v');
+                if (typeOfCall((CompositeNode) syntaxTreeNode.getChildren().get(0)) == 'v') {
+                    return true;
+                } else {
+                    throw new Exception("Type Error: Function should return void");
+                }
 
             }
             // COMMAND -> BRANCH
-            else if (firstChildLabel.equals("BRANCH")) {
+            else {
 
                 // type check the BRANCH (child index 0)
                 return typeCheckBranch((CompositeNode) syntaxTreeNode.getChildren().get(0));
@@ -171,7 +188,11 @@ public class TypeChecker {
                 // can only print numbers or text
                 // so check that ATOMIC (child index 1) is of type 'n' or 't'
                 CompositeNode atomic = (CompositeNode) syntaxTreeNode.getChildren().get(1);
-                return (typeOfAtomic(atomic) == 'n' || typeOfAtomic(atomic) == 't');
+                if (typeOfAtomic(atomic) == 'n' || typeOfAtomic(atomic) == 't') {
+                    return true;
+                } else {
+                    throw new Exception("Type Error: Can only print numeric or text types");
+                }
 
             }
             // COMMAND -> return ATOMIC
@@ -179,6 +200,8 @@ public class TypeChecker {
 
                 // TODO
                 // check that typeOf Atomic == type the function returns == 'n'
+                // check that return Atomic only within function body etc.
+                return true;
 
             }
 
@@ -188,7 +211,7 @@ public class TypeChecker {
 
     // ATOMIC -> VNAME
     // ATOMIC -> CONST
-    private static char typeOfAtomic(CompositeNode syntaxTreeNode) {
+    private char typeOfAtomic(CompositeNode syntaxTreeNode) {
 
         String firstChildLabel = ((CompositeNode) syntaxTreeNode.getChildren().get(0)).getNonTerminal();
 
@@ -213,16 +236,16 @@ public class TypeChecker {
 
     // CONST -> N
     // CONST -> T
-    private static char typeOfConst(CompositeNode syntaxTreeNode) {
+    private char typeOfConst(CompositeNode syntaxTreeNode) {
 
-        LeafNode child = (LeafNode)syntaxTreeNode.getChildren().get(0); 
+        LeafNode child = (LeafNode) syntaxTreeNode.getChildren().get(0);
 
         // CONST -> N
-        if(child.getTokenClass().equals("N")){
+        if (child.getTokenClass().equals("N")) {
             return 'n';
         }
         // CONST -> T
-        else{
+        else {
             return 't';
         }
 
@@ -230,7 +253,7 @@ public class TypeChecker {
 
     // ASSIGN -> VNAME < input
     // ASSIGN -> VNAME = TERM
-    private static boolean typeCheckAssign(CompositeNode syntaxTreeNode) {
+    private boolean typeCheckAssign(CompositeNode syntaxTreeNode) throws Exception {
 
         String secondChildLabel = ((LeafNode) syntaxTreeNode.getChildren().get(1)).getTokenClass();
 
@@ -240,7 +263,11 @@ public class TypeChecker {
 
             // only numeric user inputs are allowed
             // so check that the typeOf VNAME (child index 0) is 'n'
-            return (typeOfVName((CompositeNode) syntaxTreeNode.getChildren().get(0)) == 'n');
+            if (typeOfVName((CompositeNode) syntaxTreeNode.getChildren().get(0)) == 'n') {
+                return true;
+            } else {
+                throw new Exception("Type Error: Only numeric input from the user is allowed");
+            }
 
         }
         // ASSIGN -> VNAME = TERM
@@ -249,8 +276,12 @@ public class TypeChecker {
             // can only assign terms to variables of the same type
             // so check that the typeOf TERM (child index 2) is the same as the typeof VNAME
             // (child index 0)
-            return (typeOfVName((CompositeNode) syntaxTreeNode.getChildren().get(0)) == typeOfTerm(
-                    (CompositeNode) syntaxTreeNode.getChildren().get(2)));
+            if (typeOfVName((CompositeNode) syntaxTreeNode.getChildren().get(0)) == typeOfTerm(
+                    (CompositeNode) syntaxTreeNode.getChildren().get(2))) {
+                        return true;
+            } else {
+                throw new Exception("Type Error: Type mismatch in assignment");
+            }
 
         }
 
@@ -259,7 +290,7 @@ public class TypeChecker {
     // TERM -> ATOMIC
     // TERM -> CALL
     // TERM -> OP
-    private static char typeOfTerm(CompositeNode syntaxTreeNode) {
+    private char typeOfTerm(CompositeNode syntaxTreeNode) {
 
         String firstChildLabel = ((CompositeNode) syntaxTreeNode.getChildren().get(0)).getNonTerminal();
 
@@ -281,7 +312,7 @@ public class TypeChecker {
     }
 
     // CALL -> FNAME(ATOMIC, ATOMIC, ATOMIC)
-    private static char typeOfCall(CompositeNode syntaxTreeNode) {
+    private char typeOfCall(CompositeNode syntaxTreeNode) {
 
         // all three parameters must be numeric
         // so check that typeOf ATOMIC (child index 2), ATOMIC (child index 4) and
@@ -302,7 +333,7 @@ public class TypeChecker {
 
     // OP -> UNOP(ARG)
     // OP -> BINOP(ARG, ARG)
-    private static char typeOfOp(CompositeNode syntaxTreeNode) {
+    private char typeOfOp(CompositeNode syntaxTreeNode) {
 
         // firstly, differentiate between the two productions
         // OP -> UNOP(ARG)
@@ -346,7 +377,7 @@ public class TypeChecker {
 
     // ARG -> ATOMIC
     // ARG -> OP
-    private static char typeOfArg(CompositeNode syntaxTreeNode) {
+    private char typeOfArg(CompositeNode syntaxTreeNode) {
 
         // firstly, differentiate between the two productions
         // ARG -> ATOMIC
@@ -362,7 +393,7 @@ public class TypeChecker {
 
     // UNOP -> not
     // UNOP -> sqrt
-    private static char typeOfUnOp(CompositeNode syntaxTreeNode) {
+    private char typeOfUnOp(CompositeNode syntaxTreeNode) {
 
         // firstly, differentiate between the two productions
         // UNOP -> not
@@ -384,7 +415,7 @@ public class TypeChecker {
     // BINOP -> sub
     // BINOP -> mul
     // BINOP -> div
-    private static char typeOfBinOp(CompositeNode syntaxTreeNode) {
+    private char typeOfBinOp(CompositeNode syntaxTreeNode) {
 
         // firstly, differentiate between the productions based on the first child's
         // label
@@ -410,7 +441,7 @@ public class TypeChecker {
     }
 
     // BRANCH -> if COND then ALGO else ALGO
-    private static boolean typeCheckBranch(CompositeNode syntaxTreeNode) {
+    private boolean typeCheckBranch(CompositeNode syntaxTreeNode) throws Exception {
 
         // COND (child index 1) has to be a boolean
         // and then both ALGOs (child index 3 and child index 5) have to be correctly
@@ -419,13 +450,18 @@ public class TypeChecker {
         boolean typeCheckAlgo1 = typeCheckAlgo((CompositeNode) syntaxTreeNode.getChildren().get(3));
         boolean typeCheckAlgo2 = typeCheckAlgo((CompositeNode) syntaxTreeNode.getChildren().get(5));
 
-        return ((condType == 'b') && typeCheckAlgo1 && typeCheckAlgo2);
+        if((condType == 'b') && typeCheckAlgo1 && typeCheckAlgo2){
+            return true;
+        }
+        else{
+            throw new Exception("Type error: Condition incorrectly typed");
+        }
 
     }
 
     // COND -> SIMPLE
     // COND -> COMPOSIT
-    private static char typeOfCond(CompositeNode syntaxTreeNode) {
+    private char typeOfCond(CompositeNode syntaxTreeNode) {
 
         // firstly differentiate between the two productions
         // COND -> SIMPLE
@@ -440,7 +476,7 @@ public class TypeChecker {
     }
 
     // SIMPLE -> BINOP(ATOMIC, ATOMIC)
-    private static char typeOfSimple(CompositeNode syntaxTreeNode) {
+    private char typeOfSimple(CompositeNode syntaxTreeNode) {
 
         // get the types of BINOP (child index 0) and ATOMIC (child index 2) and ATOMIC
         // (child index 4)
@@ -460,7 +496,7 @@ public class TypeChecker {
 
     // COMPOSIT -> BINOP(SIMPLE, SIMPLE)
     // COMPOSIT -> UNOP(SIMPLE)
-    private static char typeOfComposit(CompositeNode syntaxTreeNode) {
+    private char typeOfComposit(CompositeNode syntaxTreeNode) {
 
         // firstly, differentiate between the two productions
         // COMPOSIT -> BINOP(SIMPLE, SIMPLE)
@@ -498,14 +534,17 @@ public class TypeChecker {
     }
 
     // FNAME -> F
-    private static char typeOfFName(CompositeNode syntaxTreeNode) {
-        // TODO
+    private char typeOfFName(CompositeNode syntaxTreeNode) {
+
         // Look up type of name F in the symbol table
+        String uniqueFunctionName = ((LeafNode) syntaxTreeNode.getChildren().get(0)).getWord();
+        return globalFunctionTable.lookupType(uniqueFunctionName);
+
     }
 
     // FUNCTIONS -> nullable
     // FUNCTIONS -> DECL FUNCTIONS
-    private static boolean typeCheckFunctions(CompositeNode syntaxTreeNode) {
+    private boolean typeCheckFunctions(CompositeNode syntaxTreeNode) throws Exception {
 
         // firstly differentiate between the two productions
         // FUNCTIONS -> nullable
@@ -524,7 +563,7 @@ public class TypeChecker {
     }
 
     // DECL -> HEADER BODY
-    private static boolean typeCheckDecl(CompositeNode syntaxTreeNode) {
+    private boolean typeCheckDecl(CompositeNode syntaxTreeNode) throws Exception {
 
         // ensure that both HEADER (child index 0) and BODY (child index 1) are
         // correctly typed
@@ -535,16 +574,32 @@ public class TypeChecker {
     }
 
     // HEADER -> FTYP FNAME(VNAME, VNAME, VNAME)
-    private static boolean typeCheckHeader(CompositeNode syntaxTreeNode) {
+    private boolean typeCheckHeader(CompositeNode syntaxTreeNode) {
 
-        // TODO
+        // get the type of FTYP (child index 0)
+        char functionReturnType = typeOfFType((CompositeNode) syntaxTreeNode.getChildren().get(0));
+        // get the name from FNAME (child index 1)
+        String uniqueFunctionName = ((LeafNode) ((CompositeNode) syntaxTreeNode.getChildren().get(1)).getChildren()
+                .get(0)).getWord();
         // bind FNAME to FTYPE in symbol table
+        globalFunctionTable.setType(uniqueFunctionName, functionReturnType);
+
+        // bind each of the VNAMES (child index 3, child index 5, child index 7) to
+        // numeric type
+        for (int i = 3; i <= 7; i += 2) {
+            // get the variable name from the VNAME
+            String uniqueVariableName = ((LeafNode) ((CompositeNode) syntaxTreeNode.getChildren().get(i)).getChildren()
+                    .get(0)).getWord();
+            globalVariableTable.setType(uniqueVariableName, 'n');
+        }
+
+        return true;
 
     }
 
     // FTYP -> num
     // FTYP -> void
-    private static char typeOfFType(CompositeNode syntaxTreeNode) {
+    private char typeOfFType(CompositeNode syntaxTreeNode) {
 
         // firstly, differentiate between the two productions
         // FTYP -> num
@@ -559,27 +614,37 @@ public class TypeChecker {
     }
 
     // BODY -> PROLOG LOCVARS ALGO EPILOG SUBFUNCS end
-    private static boolean typeCheckBody(CompositeNode syntaxTreeNode) {
+    private boolean typeCheckBody(CompositeNode syntaxTreeNode) throws Exception {
 
         // LOCVARS (child index 1), ALGO (child index 2) and SUBFUNCS (child index 4)
         // must all be correctly typed
         boolean result = typeCheckLocVars((CompositeNode) syntaxTreeNode.getChildren().get(1));
-        result = result && typeCheckAlgo((CompositeNode) syntaxTreeNode.getChildren().get(2));
         result = result && typeCheckSubfuncs((CompositeNode) syntaxTreeNode.getChildren().get(4));
+        result = result && typeCheckAlgo((CompositeNode) syntaxTreeNode.getChildren().get(2));
         return result;
 
     }
 
     // LOCVARS -> VTYP VNAME, VTYP VNAME, VTYP VNAME
-    private static boolean typeCheckLocVars(CompositeNode syntaxTreeNode) {
+    private boolean typeCheckLocVars(CompositeNode syntaxTreeNode) {
 
-        // TODO
-        // bind all VTYP to VNAME
+        // bind all VTYP (child indices 0, 3, 6) to VNAME (child indices 1, 4, 7)
+        for (int i = 0; i <= 6; i += 3) {
+            // get the VTYP's type
+            char type = typeOfVtyp((CompositeNode) syntaxTreeNode.getChildren().get(i));
+            // get the name from VNAME
+            String uniqueVariableName = ((LeafNode) ((CompositeNode) syntaxTreeNode.getChildren().get(i + 1))
+                    .getChildren().get(0)).getWord();
+            // set the type for the name
+            globalVariableTable.setType(uniqueVariableName, type);
+        }
+
+        return true;
 
     }
 
     // SUBFUNCS -> FUNCTIONS
-    private static boolean typeCheckSubfuncs(CompositeNode syntaxTreeNode) {
+    private boolean typeCheckSubfuncs(CompositeNode syntaxTreeNode) throws Exception {
 
         return typeCheckFunctions((CompositeNode) syntaxTreeNode.getChildren().get(0));
 

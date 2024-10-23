@@ -45,14 +45,17 @@ class Main {
         GlobalSymbolTable globalFunctionTable = FunctionScopeAnalyser.analyseProg((CompositeNode)tree);
         System.out.println(globalFunctionTable);
 
-        System.out.println("\n");
-
         //Pass the tree to the VariableScopeAnalyser
         GlobalSymbolTable globalVariableTable = VariableScopeAnalyser.analyseProg((CompositeNode)tree);
         System.out.println(globalVariableTable);
 
         //Pass the tree to the TypeChecker
-        //TypeChecker.typeCheckProg(tree);
+        TypeChecker typeChecker = new TypeChecker(globalVariableTable, globalFunctionTable);
+        boolean result = typeChecker.typeCheckProg((CompositeNode)tree);
+        System.out.println(result);
+
+        System.out.println(globalFunctionTable);
+        System.out.println(globalVariableTable);
 
     }
 

@@ -104,6 +104,9 @@ public class FunctionScopeAnalyser {
         //bind into the global function table
         String uniqueName = globalFunctionTable.bind(functionName);
 
+        //replace the user-defined name in the syntax tree with the unique name
+        ((LeafNode)((CompositeNode)((CompositeNode)syntaxTreeNode.getChildren().get(0)).getChildren().get(1)).getChildren().get(0)).setWord(uniqueName);
+
         //add the function name to the parent scope's function table
         if(parentFunctionTable.get(functionName) == null){
             parentFunctionTable.put(functionName, uniqueName);
