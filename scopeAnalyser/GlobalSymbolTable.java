@@ -3,19 +3,28 @@ package scopeAnalyser;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GlobalVariableTable {
+public class GlobalSymbolTable {
 
     private Map<String, Data> table;
     private int numberOfVariables;
+    private boolean variable;
 
-    public GlobalVariableTable(){
+    public GlobalSymbolTable(boolean variable){
         this.table = new HashMap<String, Data>();
         this.numberOfVariables = 0;
+        this.variable = variable;
     }
 
     public String bind(String userDefinedName){
 
-        String newUniqueVariableName = "V_" + numberOfVariables;
+        String newUniqueVariableName = "";
+        
+        if(variable){
+            newUniqueVariableName += "V_" + numberOfVariables;
+        }
+        else{
+            newUniqueVariableName += "F_" + numberOfVariables;
+        }
 
         this.table.put(newUniqueVariableName, new Data(userDefinedName, '?'));
 

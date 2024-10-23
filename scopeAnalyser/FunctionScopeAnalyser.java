@@ -1,7 +1,7 @@
 package scopeAnalyser;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import syntaxTree.CompositeNode;
 import syntaxTree.LeafNode;
@@ -10,25 +10,30 @@ import syntaxTree.SyntaxTreeNode;
 public class FunctionScopeAnalyser {
 
     //PROG -> main GLOBVARS ALGO FUNCTIONS
-    public static void analyseProg(CompositeNode syntaxTreeNode) throws Exception{
+    public static GlobalSymbolTable analyseProg(CompositeNode syntaxTreeNode) throws Exception{
+
+        //create a new GlobalSymbolTable
+        GlobalSymbolTable globalFunctionTable = new GlobalSymbolTable(false);
 
         //the main program can be considered almost like a function called 'main'
         
         //since we are opening a new scope, create an empty function table for this scope
-        List<String> functionTable = new ArrayList<String>();
+        Map<String, String> functionTable = new HashMap<String, String>();
 
         //since recursive calls are not allowed to 'main', do not bind 'main' into the function table
 
         //analyse the FUNCTIONS (child index 3) to bind all of their names into the function table
-        analyseFunctions((CompositeNode)syntaxTreeNode.getChildren().get(3), functionTable);
+        analyseFunctions((CompositeNode)syntaxTreeNode.getChildren().get(3), functionTable, globalFunctionTable);
 
         //analyse the ALGO (child index 2)
         //pass through the function table so we can check all function calls are legal etc.
-        analyseAlgo(syntaxTreeNode.getChildren().get(2), functionTable);
+        analyseAlgo(syntaxTreeNode.getChildren().get(2), functionTable, globalFunctionTable);
+
+        return globalFunctionTable;
 
     }
 
-    private static void analyseAlgo(SyntaxTreeNode syntaxTreeNode, List<String> functionTable) throws Exception{
+    private static void analyseAlgo(SyntaxTreeNode syntaxTreeNode, Map<String, String> functionTable, GlobalSymbolTable globalFunctionTable) throws Exception{
 
         //handle CompositeNode and LeafNode differently
         if(syntaxTreeNode instanceof CompositeNode){
@@ -42,7 +47,9 @@ public class FunctionScopeAnalyser {
                 //check that the call calls a function already bound into the function table
                 String calledFunctionName = ((LeafNode)((CompositeNode)compositeNode.getChildren().get(0)).getChildren().get(0)).getWord();
 
-                if(functionTable.contains(calledFunctionName)){
+                if(functionTable.get(calledFunctionName) != null){
+                    //Here we have a use of a function - rename the function uniquely
+                    ((LeafNode)((CompositeNode)compositeNode.getChildren().get(0)).getChildren().get(0)).setWord(functionTable.get(calledFunctionName));
                     return;
                 }
                 else{
@@ -53,7 +60,7 @@ public class FunctionScopeAnalyser {
 
             //simply call this same function on all children
             for(SyntaxTreeNode child : compositeNode.getChildren()){
-                analyseAlgo(child, functionTable);
+                analyseAlgo(child, functionTable, globalFunctionTable);
             }
 
         }
@@ -67,7 +74,7 @@ public class FunctionScopeAnalyser {
 
     //FUNCTIONS -> nullable
     //FUNCTIONS -> DECL FUNCTIONS
-    private static void analyseFunctions(CompositeNode syntaxTreeNode, List<String> functionTable) throws Exception{
+    private static void analyseFunctions(CompositeNode syntaxTreeNode, Map<String, String> functionTable, GlobalSymbolTable globalFunctionTable) throws Exception{
 
         //firstly, differentiate between the two productions
         //FUNCTIONS -> nullable
@@ -79,24 +86,27 @@ public class FunctionScopeAnalyser {
         else{
 
             //analyse the first DECL, passing through the functionTable so that it can be added to
-            analyseDecl((CompositeNode)syntaxTreeNode.getChildren().get(0), functionTable);
+            analyseDecl((CompositeNode)syntaxTreeNode.getChildren().get(0), functionTable, globalFunctionTable);
 
             //analyse the rest of the functions
-            analyseFunctions((CompositeNode)syntaxTreeNode.getChildren().get(1), functionTable);
+            analyseFunctions((CompositeNode)syntaxTreeNode.getChildren().get(1), functionTable, globalFunctionTable);
 
         }
 
     }
 
     // DECL -> HEADER BODY
-    private static void analyseDecl(CompositeNode syntaxTreeNode, List<String> parentFunctionTable) throws Exception {
+    private static void analyseDecl(CompositeNode syntaxTreeNode, Map<String, String> parentFunctionTable, GlobalSymbolTable globalFunctionTable) throws Exception {
 
         // analyse the HEADER (child index 0) to get the function name
-        String functionName = analyseHeader((CompositeNode)syntaxTreeNode.getChildren().get(0));
+        String functionName = analyseHeader((CompositeNode)syntaxTreeNode.getChildren().get(0), globalFunctionTable);
+
+        //bind into the global function table
+        String uniqueName = globalFunctionTable.bind(functionName);
 
         //add the function name to the parent scope's function table
-        if(!parentFunctionTable.contains(functionName)){
-            parentFunctionTable.add(functionName);
+        if(parentFunctionTable.get(functionName) == null){
+            parentFunctionTable.put(functionName, uniqueName);
         }
         else{
             throw new Exception("Function " + functionName + " has already been declared in this scope");
@@ -104,11 +114,11 @@ public class FunctionScopeAnalyser {
 
         // since we are opening a new scope, create an empty function table for this
         // scope
-        List<String> functionTable = new ArrayList<String>();
+        Map<String, String> functionTable = new HashMap<String, String>();
 
         // bind the name of the function into the table
-        if(!functionTable.contains(functionName)){
-            functionTable.add(functionName);
+        if(functionTable.get(functionName) == null){
+            functionTable.put(functionName, uniqueName);
         }
         else{
             throw new Exception("Function " + functionName + " has already been declared in this scope");
@@ -116,12 +126,12 @@ public class FunctionScopeAnalyser {
 
         // analyse the BODY (child index 1) to check all function calls are legal etc.
         // pass through the created functionTable
-        analyseBody((CompositeNode)syntaxTreeNode.getChildren().get(1), functionTable);
+        analyseBody((CompositeNode)syntaxTreeNode.getChildren().get(1), functionTable, globalFunctionTable);
 
     }
 
     //HEADER -> FTYPE FNAME(VNAME, VNAME, VNAME)
-    private static String analyseHeader(CompositeNode syntaxTreeNode){
+    private static String analyseHeader(CompositeNode syntaxTreeNode, GlobalSymbolTable globalFunctionTable){
 
         //get the name of the function and return it
         CompositeNode fnameChild = (CompositeNode)syntaxTreeNode.getChildren().get(1);
@@ -130,20 +140,20 @@ public class FunctionScopeAnalyser {
     }
 
     //BODY -> PROLOG LOCVARS ALGO EPILOG SUBFUNCS end
-    private static void analyseBody(CompositeNode syntaxTreeNode, List<String> functionTable) throws Exception{
+    private static void analyseBody(CompositeNode syntaxTreeNode, Map<String, String> functionTable, GlobalSymbolTable globalFunctionTable) throws Exception{
 
         //firstly bind all the SUBFUNCS (child index 4) to the functionTable so function calls can be checked etc. later
-        analyseSubfuncs((CompositeNode)syntaxTreeNode.getChildren().get(4), functionTable);
+        analyseSubfuncs((CompositeNode)syntaxTreeNode.getChildren().get(4), functionTable, globalFunctionTable);
 
         //secondly check that all function calls in the ALGO (child index 2) are legal
-        analyseAlgo(syntaxTreeNode.getChildren().get(2), functionTable);
+        analyseAlgo(syntaxTreeNode.getChildren().get(2), functionTable, globalFunctionTable);
 
     }
 
     //SUBFUNCS -> FUNCTIONS
-    private static void analyseSubfuncs(CompositeNode syntaxTreeNode, List<String> functionTable) throws Exception{
+    private static void analyseSubfuncs(CompositeNode syntaxTreeNode, Map<String, String> functionTable, GlobalSymbolTable globalFunctionTable) throws Exception{
 
-        analyseFunctions((CompositeNode)syntaxTreeNode.getChildren().get(0), functionTable);
+        analyseFunctions((CompositeNode)syntaxTreeNode.getChildren().get(0), functionTable, globalFunctionTable);
 
     }
     

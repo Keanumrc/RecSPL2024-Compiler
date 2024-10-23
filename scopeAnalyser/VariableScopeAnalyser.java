@@ -12,10 +12,10 @@ import syntaxTree.SyntaxTreeNode;
 public class VariableScopeAnalyser {
 
     //PROG -> main GLOBVARS ALGO FUNCTIONS
-    public static GlobalVariableTable analyseProg(CompositeNode syntaxTreeNode) throws Exception{
+    public static GlobalSymbolTable analyseProg(CompositeNode syntaxTreeNode) throws Exception{
 
-        //create a new GlobalVariableTable
-        GlobalVariableTable globalVariableTable = new GlobalVariableTable();
+        //create a new GlobalSymbolTable
+        GlobalSymbolTable globalVariableTable = new GlobalSymbolTable(true);
 
         //since we are opening a new scope, create an empty variable table for this scope
         Map<String, String> variableTable = new HashMap<String, String>();
@@ -33,7 +33,7 @@ public class VariableScopeAnalyser {
 
     }
 
-    private static void analyseAlgo(SyntaxTreeNode syntaxTreeNode, Map<String, String> variableTable, GlobalVariableTable globalVariableTable) throws Exception{
+    private static void analyseAlgo(SyntaxTreeNode syntaxTreeNode, Map<String, String> variableTable, GlobalSymbolTable globalVariableTable) throws Exception{
 
         //handle CompositeNode and LeafNode differently
         if(syntaxTreeNode instanceof CompositeNode){
@@ -78,7 +78,7 @@ public class VariableScopeAnalyser {
 
     //GLOBVARS -> nullable
     //GLOBVARS -> VTYP VNAME, GLOBVARS
-    private static void analyseGlobVars(CompositeNode syntaxTreeNode, Map<String, String> variableTable, GlobalVariableTable globalVariableTable) throws Exception{
+    private static void analyseGlobVars(CompositeNode syntaxTreeNode, Map<String, String> variableTable, GlobalSymbolTable globalVariableTable) throws Exception{
 
         //firstly, differentiate between the two productions
         //GLOBVARS -> nullable
@@ -110,7 +110,7 @@ public class VariableScopeAnalyser {
 
     //FUNCTIONS -> nullable
     //FUNCTIONS -> DECL FUNCTIONS
-    private static void analyseFunctions(CompositeNode syntaxTreeNode, Map<String, String> variableTable, GlobalVariableTable globalVariableTable) throws Exception{
+    private static void analyseFunctions(CompositeNode syntaxTreeNode, Map<String, String> variableTable, GlobalSymbolTable globalVariableTable) throws Exception{
 
         //firstly, differentiate between the two productions
         //FUNCTIONS -> nullable
@@ -132,7 +132,7 @@ public class VariableScopeAnalyser {
     }
 
     //DECL -> HEADER BODY
-    private static void analyseDecl(CompositeNode syntaxTreeNode, Map<String, String> parentVariableTable, GlobalVariableTable globalVariableTable) throws Exception{
+    private static void analyseDecl(CompositeNode syntaxTreeNode, Map<String, String> parentVariableTable, GlobalSymbolTable globalVariableTable) throws Exception{
 
         //Since we are opening a new scope, create a new variable table, and copy all variable names over
         //from the parentVariableTable since these can be used in descendent scopes
@@ -153,7 +153,7 @@ public class VariableScopeAnalyser {
     }
 
     //HEADER -> FTYP FNAME(VNAME, VNAME, VNAME)
-    private static List<String> analyseHeader(CompositeNode syntaxTreeNode, GlobalVariableTable globalVariableTable) throws Exception{
+    private static List<String> analyseHeader(CompositeNode syntaxTreeNode, GlobalSymbolTable globalVariableTable) throws Exception{
 
         List<String> parameterNames = new ArrayList<String>();
 
@@ -177,7 +177,7 @@ public class VariableScopeAnalyser {
     }
 
     //BODY -> PROLOG LOCVARS ALGO EPILOG SUBFUNCS end
-    private static void analyseBody(CompositeNode syntaxTreeNode, Map<String, String> variableTable, List<String> localVariables, GlobalVariableTable globalVariableTable) throws Exception{
+    private static void analyseBody(CompositeNode syntaxTreeNode, Map<String, String> variableTable, List<String> localVariables, GlobalSymbolTable globalVariableTable) throws Exception{
 
         //first analyse LOCVARS (child index 1) to add all local variables to the localVariables list
         analyseLocVars((CompositeNode)syntaxTreeNode.getChildren().get(1), localVariables, globalVariableTable);
@@ -200,7 +200,7 @@ public class VariableScopeAnalyser {
     }
 
     //LOCVARS -> VTYP VNAME, VTYP VNAME, VTYP VNAME
-    private static void analyseLocVars(CompositeNode syntaxTreeNode, List<String> localVariables, GlobalVariableTable globalVariableTable) throws Exception{
+    private static void analyseLocVars(CompositeNode syntaxTreeNode, List<String> localVariables, GlobalSymbolTable globalVariableTable) throws Exception{
 
         //for each VNAME (child indices 1, 4, 7) add the variable name to the localVariables list
         for(int i = 1; i <= 7; i+=3){
@@ -220,7 +220,7 @@ public class VariableScopeAnalyser {
     }
 
     //SUBFUNCS -> FUNCTIONS
-    private static void analyseSubfuncs(CompositeNode syntaxTreeNode, Map<String, String> parentVariableTable, GlobalVariableTable globalVariableTable) throws Exception{
+    private static void analyseSubfuncs(CompositeNode syntaxTreeNode, Map<String, String> parentVariableTable, GlobalSymbolTable globalVariableTable) throws Exception{
 
         //call analyse FUNCTIONS (child index 0)
         analyseFunctions((CompositeNode)syntaxTreeNode.getChildren().get(0), parentVariableTable, globalVariableTable);
