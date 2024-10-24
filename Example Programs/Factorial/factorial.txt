@@ -3,6 +3,7 @@ num V_a,
 
 begin
     V_a = F_factorial(5, 0, 0);
+    print V_a;
 end
 
 num F_factorial(V_one, V_two, V_three){
@@ -20,6 +21,8 @@ num F_factorial(V_one, V_two, V_three){
             begin
                 V_functionresult = 1;
             end;
+        print "Afactors";
+        print V_functionresult;
         return V_functionresult;
     end
 } 

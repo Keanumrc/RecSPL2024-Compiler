@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.List;
 
+import codeGenerator.CodeGenerator;
 import lexer.RecSPLLexer;
 import lexer.Token;
 import scopeAnalyser.FunctionScopeAnalyser;
@@ -17,8 +18,8 @@ class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String filePath = "Example Programs/SquareRootCalculator/";
-        String fileName = "squareRootCalculator.txt";
+        String filePath = "Example Programs/Factorial/";
+        String fileName = "factorial.txt";
 
         // Read the text file into a string
         BufferedReader reader = new BufferedReader(new FileReader(filePath + fileName));
@@ -56,6 +57,12 @@ class Main {
 
         System.out.println(globalFunctionTable);
         System.out.println(globalVariableTable);
+
+        //Pass the tree to the CodeGenerator
+        CodeGenerator codeGenerator = new CodeGenerator(globalVariableTable, globalFunctionTable);
+        String code = codeGenerator.generateProgCode((CompositeNode)tree);
+
+        System.out.println(code);
 
     }
 

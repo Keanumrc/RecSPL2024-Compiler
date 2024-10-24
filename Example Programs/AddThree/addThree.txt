@@ -9,6 +9,7 @@ begin
     V_b = 2;
     V_c = 3;
     V_result = F_addthree(V_a, V_b, V_c);
+    print V_result;
 end
 
 num F_addthree(V_one, V_two, V_three){

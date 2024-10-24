@@ -1,0 +1,11 @@
+main
+num V_a,
+num V_b,
+num V_c,
+
+begin
+    V_a = sqrt(sqrt(sqrt(20)));
+    V_b = 10;
+    V_c = add(V_a, mul(V_b, div(2000, 50)));
+    print V_c;
+end

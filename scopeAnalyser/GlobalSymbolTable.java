@@ -2,6 +2,7 @@ package scopeAnalyser;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class GlobalSymbolTable {
 
@@ -20,13 +21,13 @@ public class GlobalSymbolTable {
         String newUniqueVariableName = "";
         
         if(variable){
-            newUniqueVariableName += "V_" + numberOfVariables;
+            newUniqueVariableName += "V" + numberOfVariables;
         }
         else{
-            newUniqueVariableName += "F_" + numberOfVariables;
+            newUniqueVariableName += "F" + numberOfVariables;
         }
 
-        this.table.put(newUniqueVariableName, new Data(userDefinedName, '?'));
+        this.table.put(newUniqueVariableName, new Data(userDefinedName, '?', "0 "));
 
         numberOfVariables++;
 
@@ -54,6 +55,26 @@ public class GlobalSymbolTable {
 
     }
 
+    public void setStartLineNumber(String name, String startLineNumber){
+
+        if(this.table.get(name) != null){
+            this.table.get(name).startLineNumber = startLineNumber;
+        }
+
+    }
+
+    public String lookupStartLineNumber(String name){
+
+        return this.table.get(name).startLineNumber;
+
+    }
+
+    public Set<String> getAllNames(){
+
+        return this.table.keySet();
+
+    }
+
     @Override
     public String toString(){
 
@@ -71,11 +92,14 @@ public class GlobalSymbolTable {
 
         private String userDefinedName;
         private char type;
+        //applicable to functions
+        private String startLineNumber;
 
-        public Data(String userDefinedName, char type){
+        public Data(String userDefinedName, char type, String startLineNumber){
 
             this.userDefinedName = userDefinedName;
             this.type = type;
+            this.startLineNumber = startLineNumber;
 
         }
 
