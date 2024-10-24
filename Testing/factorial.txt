@@ -1,0 +1,31 @@
+main
+num V_a,
+
+begin
+    V_a = F_factorial(5, 0, 0);
+    V_a < input;
+    print V_a;
+end
+
+num F_factorial(V_one, V_two, V_three){
+    num V_functionresult,
+    num V_intermediate1,
+    num V_intermediate2,
+    begin
+        if grt(V_one, 1) then
+            begin
+                V_intermediate1 = sub(V_one, 1);
+                V_intermediate2 = F_factorial(V_intermediate1, 0, 0);
+                V_functionresult = mul(V_one, V_intermediate2);
+            end
+        else
+            begin
+                V_functionresult = 1;
+            end;
+        print "Afactors";
+        print V_functionresult;
+        return V_functionresult;
+    end
+} 
+
+end

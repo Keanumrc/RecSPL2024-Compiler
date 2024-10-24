@@ -17,5 +17,24 @@ public class Token {
     public String getWord(){
         return this.word;
     }
+
+    @Override
+    public String toString(){
+
+        String outputWord;
+
+        if(word.equals("<")){
+            outputWord = "&lt;";
+        }
+        else{
+            outputWord = word;
+        }
+
+        String output = "<token>\n";
+        output += "<tokenClass>" + tokenClass + "</tokenClass>\n";
+        output += "<word>" + outputWord + "</word>\n";
+        output += "</token>\n";
+        return output;
+    }
     
 }

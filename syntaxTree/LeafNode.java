@@ -28,10 +28,18 @@ public class LeafNode implements SyntaxTreeNode {
     @Override
     public String toString(){
 
+        String outputWord;
+        if(word.equals("<")){
+            outputWord = "&lt;";
+        }
+        else{
+            outputWord = word;
+        }
+
         String output = "<leafNode>\n"; 
         
         output += "<tokenClass>" + tokenClass + "</tokenClass>\n";
-        output += "<word>" + word + "</word>\n";
+        output += "<word>" + outputWord + "</word>\n";
 
         return output + "</leafNode>\n";
 
