@@ -34,11 +34,20 @@ public class CodeGenerator {
 
         String code = "";
 
+        //create the runtime stack
+        //up to 1000 stack frames can be created before a stack overflow occurs
+        code += getLineNumber() + "DIM M(7,100)" + "\n";
+
+        //create a stack pointer and initialise it to 0
+        code += getLineNumber() + "LET SP = 0\n";
+
         // ignore main
         // ignore GLOBVARS
 
         // translate ALGO (child index 2)
-        code += generateAlgoCode((CompositeNode) compositeNode.getChildren().get(2));
+        String[] localVariables = {};
+        String[] parameters = {};
+        code += generateAlgoCode((CompositeNode) compositeNode.getChildren().get(2), localVariables, parameters);
 
         // stop the main program before FUNCTIONS are reached
         code += getLineNumber() + "STOP\n";
@@ -46,19 +55,25 @@ public class CodeGenerator {
         // translate FUNCTIONS (child index 3)
         code += generateFunctionsCode((CompositeNode) compositeNode.getChildren().get(3));
 
+        //replace all function names with correct line numbers
+        //iterate over all function names in the globalFunctionTable
+        for(String functionName : globalFunctionTable.getAllNames()){
+            code = code.replace("{" + functionName + "}", globalFunctionTable.lookupStartLineNumber(functionName));
+        }
+
         return code;
 
     }
 
     // ALGO -> begin INSTRUC end
-    private String generateAlgoCode(CompositeNode compositeNode) {
+    private String generateAlgoCode(CompositeNode compositeNode, String[] localVariables, String[] parameters) {
 
         String code = "";
 
         // ignore begin
 
         // translate INSTRUC (child index 1)
-        code += generateInstrucCode((CompositeNode) compositeNode.getChildren().get(1));
+        code += generateInstrucCode((CompositeNode) compositeNode.getChildren().get(1), localVariables, parameters);
 
         // ignore end
 
@@ -68,7 +83,7 @@ public class CodeGenerator {
 
     // INSTRUC -> nullable
     // INSTRUC -> COMMAND; INSTRUC
-    private String generateInstrucCode(CompositeNode compositeNode) {
+    private String generateInstrucCode(CompositeNode compositeNode, String[] localVariables, String[] parameters) {
 
         String code = "";
 
@@ -83,10 +98,10 @@ public class CodeGenerator {
         else {
 
             // translate COMMAND (child index 0)
-            code += generateCommandCode((CompositeNode) compositeNode.getChildren().get(0));
+            code += generateCommandCode((CompositeNode) compositeNode.getChildren().get(0), localVariables, parameters);
 
             // translate INSTRUC (child index 2)
-            code += generateInstrucCode((CompositeNode) compositeNode.getChildren().get(2));
+            code += generateInstrucCode((CompositeNode) compositeNode.getChildren().get(2), localVariables, parameters);
 
         }
 
@@ -101,7 +116,7 @@ public class CodeGenerator {
     // COMMAND -> ASSIGN
     // COMMAND -> CALL
     // COMMAND -> BRANCH
-    private String generateCommandCode(CompositeNode compositeNode) {
+    private String generateCommandCode(CompositeNode compositeNode, String[] localVariables, String[] parameters) {
 
         String code = "";
 
@@ -119,19 +134,19 @@ public class CodeGenerator {
             // COMMAND -> ASSIGN
             if (firstChildLabel.equals("ASSIGN")) {
 
-                code += generateAssignCode((CompositeNode) compositeNode.getChildren().get(0));
+                code += generateAssignCode((CompositeNode) compositeNode.getChildren().get(0), localVariables, parameters);
 
             }
             // COMMAND -> CALL
             else if (firstChildLabel.equals("CALL")) {
 
-                code += generateCallCode((CompositeNode) compositeNode.getChildren().get(0));
+                code += generateCallCode((CompositeNode) compositeNode.getChildren().get(0), localVariables, parameters, null);
 
             }
             // COMMAND -> BRANCH
             else {
 
-                code += generateBranchCode((CompositeNode) compositeNode.getChildren().get(0));
+                code += generateBranchCode((CompositeNode) compositeNode.getChildren().get(0), localVariables, parameters);
 
             }
 
@@ -166,7 +181,10 @@ public class CodeGenerator {
             // COMMAND -> return ATOMIC
             else {
 
-                // TODO
+                //load the ATOMIC into the location for the function return value M[0,SP]
+                code += getLineNumber();
+                code += "LET M(0,SP) = " + generateAtomicCode((CompositeNode)compositeNode.getChildren().get(1));
+                code += "\n";
 
             }
 
@@ -235,7 +253,7 @@ public class CodeGenerator {
 
     // ASSIGN -> VNAME < input
     // ASSIGN -> VNAME = TERM
-    private String generateAssignCode(CompositeNode compositeNode) {
+    private String generateAssignCode(CompositeNode compositeNode, String[] localVariables, String[] parameters) {
 
         String code = "";
 
@@ -271,7 +289,7 @@ public class CodeGenerator {
             }
 
             // generate the TERM code
-            String termCode = generateTermCode((CompositeNode) compositeNode.getChildren().get(2), place);
+            String termCode = generateTermCode((CompositeNode) compositeNode.getChildren().get(2), place, localVariables, parameters);
 
             code += termCode;
             code += getLineNumber();
@@ -287,7 +305,7 @@ public class CodeGenerator {
     // TERM -> ATOMIC
     // TERM -> CALL
     // TERM -> OP
-    private String generateTermCode(CompositeNode compositeNode, String place) {
+    private String generateTermCode(CompositeNode compositeNode, String place, String[] localVariables, String[] parameters) {
 
         String code = "";
 
@@ -302,7 +320,7 @@ public class CodeGenerator {
         }
         // TERM -> CALL
         else if (firstChildLabel.equals("CALL")) {
-            code += generateCallCode((CompositeNode) compositeNode.getChildren().get(0));
+            code += generateCallCode((CompositeNode) compositeNode.getChildren().get(0), localVariables, parameters, place);
         }
         // TERM -> OP
         else {
@@ -478,17 +496,83 @@ public class CodeGenerator {
 
     }
 
-    private String generateCallCode(CompositeNode compositeNode) {
+    // CALL -> FNAME(ATOMIC, ATOMIC, ATOMIC)
+    private String generateCallCode(CompositeNode compositeNode, String[] localVariables, String[] parameters, String place) {
 
-        // TODO
         String code = "";
+
+        //get the function name
+        String functionName = ((LeafNode)((CompositeNode)compositeNode.getChildren().get(0)).getChildren().get(0)).getWord();
+
+        //-----------------------CALL SEQUENCE-----------------------//
+
+        //the caller must save its local variables to the stack so that these can be restored after the function call
+        //get the caller's local variables from the list of local variables
+        //M[4-6,SP] will store the local variables
+        for(int i = 0; i < localVariables.length; i++){
+
+            code += getLineNumber();
+            code += "LET M(" + (i+4) + ",SP) = " + localVariables[i] + "\n";
+
+        }
+        //get the caller's parameters from the list of parameters
+        //M[1-3,SP] will store the parameters
+        for(int i = 0; i < parameters.length; i++){
+
+            code += getLineNumber();
+            code += "LET M(" + (i+1) + ",SP) = " + parameters[i] + "\n";
+
+        }
+
+        //move the stack pointer on by one
+        code += getLineNumber() + "LET SP = SP + 1\n";
+
+        //save the parameters (child indices 0->2, 1->4, 2->6) onto the stack M[1-3,SP] for the callee to use
+        for(int i = 0; i < 3; i++){
+
+            code += getLineNumber();
+            code += "M(" + (i+1) + ",SP) = " + generateAtomicCode((CompositeNode)compositeNode.getChildren().get(2*i+2));
+            code += "\n";
+
+        }
+
+        //jump to the callee
+        code += getLineNumber();
+        code += "GOSUB {" + functionName + "}: REM GOTO " + functionName + "\n";
+
+        //fetch the result M[0,SP] from the stack and save it into place
+        //if place is null then it is a void function and no saving into place needs to be done
+        if(place != null){
+            code += getLineNumber();
+            code += "LET " + place + " = M(0,SP)\n"; 
+        }
+
+        //move the stack pointer back by one
+        code += getLineNumber() + "LET SP = SP - 1\n"; 
+
+        //restore the caller's local variables
+        for(int i = 0; i < localVariables.length; i++){
+
+            code += getLineNumber();
+            code += "LET " + localVariables[i] + " = M(" + (i+4) + ",SP)\n";
+
+        }
+        //restore the caller's parameters
+        for(int i = 0; i < parameters.length; i++){
+
+            code += getLineNumber();
+            code += "LET " + parameters[i] + " = M(" + (i+1) + ",SP)\n";
+
+        }
+
+        //-----------------------CALL SEQUENCE-----------------------//        
 
         return code;
 
     }
 
     // BRANCH -> if COND then ALGO else ALGO
-    private String generateBranchCode(CompositeNode compositeNode) {
+    private String generateBranchCode(CompositeNode compositeNode, String[] localVariables, String[] parameters) {
 
         String code = "";
 
@@ -508,7 +592,7 @@ public class CodeGenerator {
 
         // code2
         // translate the first ALGO (child index 3)
-        code += generateAlgoCode((CompositeNode) compositeNode.getChildren().get(3));
+        code += generateAlgoCode((CompositeNode) compositeNode.getChildren().get(3), localVariables, parameters);
 
         code += getLineNumber() + "GOTO {label3LineNumber}: REM GOTO " + label3 + "\n";
 
@@ -517,7 +601,7 @@ public class CodeGenerator {
 
         // code3
         // translate the second ALGO (child index 5)
-        code += generateAlgoCode((CompositeNode) compositeNode.getChildren().get(5));
+        code += generateAlgoCode((CompositeNode) compositeNode.getChildren().get(5), localVariables, parameters);
 
         String label3LineNumber = getLineNumber();
         code += label3LineNumber + "REM " + label3 + "\n";
@@ -667,10 +751,156 @@ public class CodeGenerator {
 
     }
 
+    // FUNCTIONS -> nullable
+    // FUNCTIONS -> DECL FUNCTIONS    
     private String generateFunctionsCode(CompositeNode compositeNode) {
 
-        // TODO
         String code = "";
+
+        // firstly differentiate between the two productions
+        // FUNCTIONS -> nullable
+        if (compositeNode.getChildren().size() == 0) {
+
+            code += getLineNumber() + "REM END\n";
+
+        }
+        // FUNCTIONS -> DECL FUNCTIONS
+        else {
+
+            //Generate code for DECL (child index 0)
+            code += generateDeclCode((CompositeNode)compositeNode.getChildren().get(0));
+
+            // stop the function code before rest of the FUNCTIONS are reached
+            code += getLineNumber() + "STOP\n";    
+            
+            //Generate code for the rest of the FUNCTION (child index 1)
+            code += generateFunctionsCode((CompositeNode)compositeNode.getChildren().get(1));
+
+        }
+
+        return code;
+
+    }
+
+    // DECL -> HEADER BODY
+    private String generateDeclCode(CompositeNode compositeNode){
+
+        String code = "";
+
+        //Generate code for HEADER (child index 0)
+        code += generateHeaderCode((CompositeNode)compositeNode.getChildren().get(0));
+
+        //get all local parameters
+        String[] parameters = getParameters((CompositeNode)compositeNode.getChildren().get(0));
+
+        //Generate code for BODY (child index 1)
+        code += generateBodyCode((CompositeNode)compositeNode.getChildren().get(1), parameters);
+
+        return code;
+
+    }
+
+    // HEADER -> FTYP FNAME(VNAME, VNAME, VNAME)
+    private String[] getParameters(CompositeNode compositeNode){
+
+        String[] parameters = new String[3];
+
+        //child indices 0->3, 1->5, 2->7
+        for(int i = 0; i < 3; i++){
+            CompositeNode vName = (CompositeNode)compositeNode.getChildren().get(2*i+3);
+            String parameterName = ((LeafNode)vName.getChildren().get(0)).getWord();
+            parameters[i] = parameterName;
+        }
+
+        return parameters;
+
+    }    
+
+    // HEADER -> FTYP FNAME(VNAME, VNAME, VNAME)
+    private String generateHeaderCode(CompositeNode compositeNode){
+
+        String code = "";
+
+        //-----------------------PROLOGUE-----------------------//
+
+        //get the function name
+        String functionName = ((LeafNode)((CompositeNode)compositeNode.getChildren().get(1)).getChildren().get(0)).getWord();
+
+        //generate a label for the function entry point
+        String entryLine = getLineNumber();
+        code += entryLine + "REM " + functionName + "\n";
+
+        //bind this line number to the function
+        globalFunctionTable.setStartLineNumber(functionName, entryLine);
+
+        //load parameters M[1-3,SP] into the function's three parameter variables
+        for(int i = 0; i < 3; i++){
+
+            //get the variable name from VNAME (child indices 0->3, 1->5, 2->7)
+            String variableName = ((LeafNode)((CompositeNode)compositeNode.getChildren().get(2*i+3)).getChildren().get(0)).getWord();
+
+            //assign to variable name from M[1-3,SP]
+            code += getLineNumber();
+            code += "LET " + variableName + " = M(" + (i+1) + ",SP)\n";  
+
+        }
+
+        //-----------------------PROLOGUE-----------------------//
+
+        return code;
+
+    }
+
+    // BODY -> PROLOG LOCVARS ALGO EPILOG SUBFUNCS end
+    private String generateBodyCode(CompositeNode compositeNode, String[] parameters){
+
+        String code = "";
+
+        //save all the LOCVARS' names into an array so that when function calls are made these can be saved
+        String[] localVariables = getLocalVariables((CompositeNode)compositeNode.getChildren().get(1));
+
+        //translate ALGO (child index 2)
+        code += generateAlgoCode((CompositeNode)compositeNode.getChildren().get(2), localVariables, parameters);
+
+        //-----------------------EPILOGUE-----------------------//
+
+        //return
+        code += getLineNumber();
+        code += "RETURN\n";
+
+        //-----------------------EPILOGUE-----------------------//
+
+        //translate SUBFUNCS (child index 4)
+        code += generateSubFuncsCode((CompositeNode)compositeNode.getChildren().get(4));
+
+        return code;
+
+    }
+
+    // LOCVARS -> VTYP VNAME, VTYP VNAME, VTYP VNAME
+    private String[] getLocalVariables(CompositeNode compositeNode){
+
+        String[] localVariables = new String[3];
+
+        //get each VNAME (child indices 0->1, 1->4, 2->7) name
+        for(int i = 0; i < 3; i++){
+
+            CompositeNode vName = (CompositeNode)compositeNode.getChildren().get(3*i+1);
+            String variableName = ((LeafNode)vName.getChildren().get(0)).getWord();
+            localVariables[i] = variableName;
+
+        }
+
+        return localVariables;
+
+    }
+
+    // SUBFUNCS -> FUNCTIONS
+    private String generateSubFuncsCode(CompositeNode compositeNode){
+
+        String code = "";
+
+        code += generateFunctionsCode((CompositeNode)compositeNode.getChildren().get(0));
 
         return code;
 

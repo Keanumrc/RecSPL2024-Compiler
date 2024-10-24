@@ -18,8 +18,8 @@ class Main {
 
     public static void main(String[] args) throws Exception {
 
-        String filePath = "Example Programs/SquareRootCalculator/";
-        String fileName = "squareRootCalculator.txt";
+        String filePath = "Example Programs/Factorial/";
+        String fileName = "factorial.txt";
 
         // Read the text file into a string
         BufferedReader reader = new BufferedReader(new FileReader(filePath + fileName));
